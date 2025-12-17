@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nosotros — Cyberduck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&family=Oxanium:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/main.css">
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header__inner">
+      <div class="brand">
+        <a class="brand__logo-group" href="./index.html">
+          <img src="./imgs/logo.png" alt="Cyberduck logo" class="brand__img">
+          <div class="brand__logo">CYBERDUCK</div>
+        </a>
+        <nav class="nav" aria-label="navegación principal">
+          <a class="nav__link" href="./nuevo.html">¿qué hay de nuevo?</a>
+          <div class="nav__item nav__item--dropdown">
+            <a class="nav__link nav__link--parent" href="./ropa.html?cat=todos" aria-haspopup="true">ropa <span class="nav__chevron" aria-hidden="true"></span></a>
+            <div class="nav__dropdown" role="menu">
+              <a class="nav__dropdown-link" href="./ropa.html?cat=todos" role="menuitem">Todo</a>
+              <a class="nav__dropdown-link" href="./ropa.html?cat=hombre" role="menuitem">Hombre</a>
+              <a class="nav__dropdown-link" href="./ropa.html?cat=mujer" role="menuitem">Mujer</a>
+            </div>
+          </div>
+          <a class="nav__link" href="./accesorios.html">accesorios</a>
+          <div class="nav__item nav__item--dropdown">
+            <a class="nav__link nav__link--parent" href="./impresion3d.html?cat=todos" aria-haspopup="true">impresión 3D <span class="nav__chevron" aria-hidden="true"></span></a>
+            <div class="nav__dropdown" role="menu">
+              <a class="nav__dropdown-link" href="./impresion3d.html?cat=llaveros" role="menuitem">Llaveros</a>
+              <a class="nav__dropdown-link" href="./impresion3d.html?cat=figuras" role="menuitem">Figuras</a>
+              <a class="nav__dropdown-link" href="./impresion3d.html?cat=coleccion" role="menuitem">Colección</a>
+            </div>
+          </div>
+          <a class="nav__link" href="./media.html">media</a>
+          <a class="nav__link" href="./nosotros.html">nosotros</a>
+          <a class="nav__custom" href="./index.html#custom3d">✨ personaliza tu 3D ✨</a>
+        </nav>
+      </div>
+
+      <div class="header__actions">
+        <a class="pill pill--neon" href="./index.html#login">iniciar sesión</a>
+        <button class="iconbtn" type="button" aria-label="Idioma">ES</button>
+        <button class="iconbtn" type="button" aria-label="Buscar">⌕</button>
+        <button class="iconbtn" type="button" aria-label="Carrito">🛒</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="section section--nosotros">
+        <div class="section__head">
+          <h1 class="section__title">Nosotros</h1>
+          <a class="viewall" href="./index.html">volver al inicio</a>
+        </div>
+
+        <div class="about">
+          <div class="about__visual">
+            <div class="about__image">
+              <!-- Placeholder decorativo con estilo neón -->
+              <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:rgba(0,229,255,.85);stop-opacity:1" />
+                    <stop offset="50%" style="stop-color:rgba(255,43,214,.75);stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:rgba(139,255,74,.85);stop-opacity:1" />
+                  </linearGradient>
+                  <filter id="glow">
+                    <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+                    <feMerge>
+                      <feMergeNode in="coloredBlur"/>
+                      <feMergeNode in="SourceGraphic"/>
+                    </feMerge>
+                  </filter>
+                </defs>
+                
+                <!-- Círculos decorativos -->
+                <circle cx="200" cy="200" r="140" stroke="url(#grad1)" stroke-width="4" fill="none" opacity="0.6" filter="url(#glow)"/>
+                <circle cx="200" cy="200" r="100" stroke="rgba(0,229,255,.75)" stroke-width="3" fill="none" opacity="0.5"/>
+                <circle cx="200" cy="200" r="60" stroke="rgba(255,43,214,.65)" stroke-width="2" fill="none" opacity="0.4"/>
+                
+                <!-- Forma central estilizada (pato abstracto) -->
+                <path d="M200 120 C240 120 260 140 260 170 C260 190 250 200 240 205 L240 240 C240 260 220 280 200 280 C180 280 160 260 160 240 L160 205 C150 200 140 190 140 170 C140 140 160 120 200 120 Z" 
+                      fill="rgba(0,229,255,.25)" stroke="rgba(0,229,255,.95)" stroke-width="3" filter="url(#glow)"/>
+                
+                <!-- Detalles -->
+                <circle cx="185" cy="160" r="6" fill="rgba(233,238,251,.95)"/>
+                <circle cx="215" cy="160" r="6" fill="rgba(233,238,251,.95)"/>
+                <path d="M180 190 Q200 200 220 190" stroke="rgba(255,43,214,.85)" stroke-width="3" stroke-linecap="round" fill="none"/>
+                
+                <!-- Elementos flotantes -->
+                <circle cx="280" cy="150" r="4" fill="rgba(139,255,74,.8)" filter="url(#glow)"/>
+                <circle cx="320" cy="200" r="3" fill="rgba(255,43,214,.7)" filter="url(#glow)"/>
+                <circle cx="120" cy="180" r="3" fill="rgba(0,229,255,.75)" filter="url(#glow)"/>
+                <circle cx="80" cy="220" r="4" fill="rgba(139,255,74,.7)" filter="url(#glow)"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="about__content">
+            <h2 class="about__heading">Bienvenido al universo Cyberduck</h2>
+            <p class="about__text">
+              Somos una marca alternativa que mezcla estética cyberpunk con diseño contemporáneo. 
+              Nacimos del amor por lo diferente, lo brillante y lo un poco raro (en el mejor sentido).
+            </p>
+            <p class="about__text">
+              Cada pieza que creamos —ya sea ropa, accesorios o figuras impresas en 3D— lleva nuestra 
+              esencia neón: colores vibrantes sobre negro profundo, tipografía agresiva y detalles que 
+              no pasan desapercibidos.
+            </p>
+            <p class="about__text">
+              Creemos en la autenticidad, en expresar tu identidad sin filtros y en llevar lo que 
+              realmente te representa. No seguimos tendencias, las creamos.
+            </p>
+            <div class="about__cta">
+              <a class="btn btn--primary" href="./index.html">explorar productos</a>
+              <a class="btn" href="./media.html">síguenos en redes</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats section -->
+        <div class="stats">
+          <div class="stat">
+            <div class="stat__number">3+</div>
+            <div class="stat__label">años creando</div>
+          </div>
+          <div class="stat">
+            <div class="stat__number">500+</div>
+            <div class="stat__label">piezas vendidas</div>
+          </div>
+          <div class="stat">
+            <div class="stat__number">100%</div>
+            <div class="stat__label">hecho con amor</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="./scripts/main.js"></script>
+</body>
+</html>

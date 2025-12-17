@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ropa — Cyberduck</title>
+  <title>Impresión 3D — Cyberduck</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&family=Oxanium:wght@700;800;900&display=swap" rel="stylesheet">
@@ -55,71 +55,101 @@
 
   <main>
     <div class="container">
-      <section class="section section--ropa">
+      <section class="section section--impresion3d">
         <div class="section__head">
-          <h1 class="section__title" id="ropaTitle">Ropa</h1>
+          <h1 class="section__title" id="impresion3dTitle">Impresión 3D</h1>
           <a class="viewall" href="./index.html">volver al inicio</a>
         </div>
 
         <div class="filter-tabs" id="filterTabs">
           <button class="filter-tab" data-cat="todos">Todo</button>
-          <button class="filter-tab" data-cat="hombre">Hombre</button>
-          <button class="filter-tab" data-cat="mujer">Mujer</button>
+          <button class="filter-tab" data-cat="llaveros">Llaveros</button>
+          <button class="filter-tab" data-cat="figuras">Figuras</button>
+          <button class="filter-tab" data-cat="coleccion">Colección</button>
         </div>
 
-        <div class="gallery" id="ropaGallery">
-          <!-- Productos Todos/Hombre -->
-          <article class="gallery__item" data-category="hombre">
+        <div class="gallery" id="impresion3dGallery">
+          <!-- Llaveros -->
+          <article class="gallery__item" data-category="llaveros">
             <div class="gallery__image gallery__image--a"></div>
             <div class="gallery__meta">
-              <p class="gallery__name">Sweater "Cyberduck Grid"</p>
-              <p class="gallery__price">$149.000 COP</p>
-              <p class="gallery__category">Hombre</p>
+              <p class="gallery__name">Llavero "Cyberduck Mini"</p>
+              <p class="gallery__price">$29.000 COP</p>
+              <p class="gallery__category">Llaveros</p>
             </div>
           </article>
 
-          <article class="gallery__item" data-category="hombre">
+          <article class="gallery__item" data-category="llaveros">
             <div class="gallery__image gallery__image--b"></div>
             <div class="gallery__meta">
-              <p class="gallery__name">Camiseta "Neon Code"</p>
-              <p class="gallery__price">$89.000 COP</p>
-              <p class="gallery__category">Hombre</p>
+              <p class="gallery__name">Llavero "Neon Symbol"</p>
+              <p class="gallery__price">$25.000 COP</p>
+              <p class="gallery__category">Llaveros</p>
             </div>
           </article>
 
-          <article class="gallery__item" data-category="mujer">
+          <article class="gallery__item" data-category="llaveros">
             <div class="gallery__image gallery__image--c"></div>
             <div class="gallery__meta">
-              <p class="gallery__name">Hoodie "Digital Wave"</p>
-              <p class="gallery__price">$169.000 COP</p>
-              <p class="gallery__category">Mujer</p>
+              <p class="gallery__name">Llavero "Glitch Logo"</p>
+              <p class="gallery__price">$27.000 COP</p>
+              <p class="gallery__category">Llaveros</p>
             </div>
           </article>
 
-          <article class="gallery__item" data-category="mujer">
+          <!-- Figuras -->
+          <article class="gallery__item" data-category="figuras">
             <div class="gallery__image gallery__image--d"></div>
             <div class="gallery__meta">
-              <p class="gallery__name">Top "Glitch Effect"</p>
-              <p class="gallery__price">$79.000 COP</p>
-              <p class="gallery__category">Mujer</p>
+              <p class="gallery__name">Figura "Neon Duck"</p>
+              <p class="gallery__price">$99.000 COP</p>
+              <p class="gallery__category">Figuras</p>
             </div>
           </article>
 
-          <article class="gallery__item" data-category="hombre">
+          <article class="gallery__item" data-category="figuras">
             <div class="gallery__image gallery__image--a"></div>
             <div class="gallery__meta">
-              <p class="gallery__name">Chaqueta "Cyber Punk"</p>
-              <p class="gallery__price">$249.000 COP</p>
-              <p class="gallery__category">Hombre</p>
+              <p class="gallery__name">Figura "Cyber Skull"</p>
+              <p class="gallery__price">$119.000 COP</p>
+              <p class="gallery__category">Figuras</p>
             </div>
           </article>
 
-          <article class="gallery__item" data-category="mujer">
+          <article class="gallery__item" data-category="figuras">
             <div class="gallery__image gallery__image--b"></div>
             <div class="gallery__meta">
-              <p class="gallery__name">Vestido "Matrix Flow"</p>
-              <p class="gallery__price">$199.000 COP</p>
-              <p class="gallery__category">Mujer</p>
+              <p class="gallery__name">Figura "Digital Heart"</p>
+              <p class="gallery__price">$109.000 COP</p>
+              <p class="gallery__category">Figuras</p>
+            </div>
+          </article>
+
+          <!-- Colección -->
+          <article class="gallery__item" data-category="coleccion">
+            <div class="gallery__image gallery__image--c"></div>
+            <div class="gallery__meta">
+              <p class="gallery__name">Set "Volt Collection"</p>
+              <p class="gallery__price">$249.000 COP</p>
+              <p class="gallery__category">Colección</p>
+            </div>
+          </article>
+
+          <article class="gallery__item" data-category="coleccion">
+            <div class="gallery__image gallery__image--d"></div>
+            <div class="gallery__meta">
+              <p class="gallery__name">Pack "Neon Series"</p>
+              <p class="gallery__price">$299.000 COP</p>
+              <p class="gallery__category">Colección</p>
+            </div>
+          </article>
+
+          <article class="gallery__item" data-category="coleccion">
+            <div class="gallery__image gallery__image--a"></div>
+            <div class="gallery__meta">
+              <p class="gallery__name">Box "Limited Edition"</p>
+              <p class="gallery__price">$349.000 COP</p>
+              <p class="gallery__category">Colección</p>
             </div>
           </article>
         </div>
@@ -133,13 +163,15 @@
     const category = urlParams.get('cat') || 'todos';
     
     // Actualizar título
-    const titleEl = document.getElementById('ropaTitle');
-    if (category === 'hombre') {
-      titleEl.textContent = 'Ropa — Hombre';
-    } else if (category === 'mujer') {
-      titleEl.textContent = 'Ropa — Mujer';
+    const titleEl = document.getElementById('impresion3dTitle');
+    if (category === 'llaveros') {
+      titleEl.textContent = 'Impresión 3D — Llaveros';
+    } else if (category === 'figuras') {
+      titleEl.textContent = 'Impresión 3D — Figuras';
+    } else if (category === 'coleccion') {
+      titleEl.textContent = 'Impresión 3D — Colección';
     } else {
-      titleEl.textContent = 'Ropa — Todo';
+      titleEl.textContent = 'Impresión 3D — Todo';
     }
 
     // Filtrar productos
@@ -165,7 +197,7 @@
       
       // Click handler para cambiar filtro
       tab.addEventListener('click', () => {
-        window.location.href = `./ropa.html?cat=${tabCat}`;
+        window.location.href = `./impresion3d.html?cat=${tabCat}`;
       });
     });
   </script>

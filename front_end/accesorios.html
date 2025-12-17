@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ropa — Cyberduck</title>
+  <title>Accesorios — Cyberduck</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&family=Oxanium:wght@700;800;900&display=swap" rel="stylesheet">
@@ -11,6 +11,7 @@
 </head>
 
 <body>
+<script src="./scripts/main.js"></script>
   <!-- HEADER -->
   <header class="header">
     <div class="container header__inner">
@@ -55,71 +56,74 @@
 
   <main>
     <div class="container">
-      <section class="section section--ropa">
+      <section class="section section--accesorios">
         <div class="section__head">
-          <h1 class="section__title" id="ropaTitle">Ropa</h1>
+          <h1 class="section__title">Accesorios</h1>
           <a class="viewall" href="./index.html">volver al inicio</a>
         </div>
 
-        <div class="filter-tabs" id="filterTabs">
-          <button class="filter-tab" data-cat="todos">Todo</button>
-          <button class="filter-tab" data-cat="hombre">Hombre</button>
-          <button class="filter-tab" data-cat="mujer">Mujer</button>
-        </div>
-
-        <div class="gallery" id="ropaGallery">
-          <!-- Productos Todos/Hombre -->
-          <article class="gallery__item" data-category="hombre">
+        <div class="gallery">
+          <article class="gallery__item">
             <div class="gallery__image gallery__image--a"></div>
             <div class="gallery__meta">
-              <p class="gallery__name">Sweater "Cyberduck Grid"</p>
-              <p class="gallery__price">$149.000 COP</p>
-              <p class="gallery__category">Hombre</p>
+              <p class="gallery__name">Collar "Neon Chain"</p>
+              <p class="gallery__price">$79.000 COP</p>
             </div>
           </article>
 
-          <article class="gallery__item" data-category="hombre">
+          <article class="gallery__item">
             <div class="gallery__image gallery__image--b"></div>
             <div class="gallery__meta">
-              <p class="gallery__name">Camiseta "Neon Code"</p>
-              <p class="gallery__price">$89.000 COP</p>
-              <p class="gallery__category">Hombre</p>
+              <p class="gallery__name">Pin set "Cyber Icons"</p>
+              <p class="gallery__price">$39.000 COP</p>
             </div>
           </article>
 
-          <article class="gallery__item" data-category="mujer">
+          <article class="gallery__item">
             <div class="gallery__image gallery__image--c"></div>
             <div class="gallery__meta">
-              <p class="gallery__name">Hoodie "Digital Wave"</p>
-              <p class="gallery__price">$169.000 COP</p>
-              <p class="gallery__category">Mujer</p>
+              <p class="gallery__name">Cadena "Digital Lock"</p>
+              <p class="gallery__price">$119.000 COP</p>
             </div>
           </article>
 
-          <article class="gallery__item" data-category="mujer">
+          <article class="gallery__item">
             <div class="gallery__image gallery__image--d"></div>
             <div class="gallery__meta">
-              <p class="gallery__name">Top "Glitch Effect"</p>
-              <p class="gallery__price">$79.000 COP</p>
-              <p class="gallery__category">Mujer</p>
+              <p class="gallery__name">Dije "Glitch Heart"</p>
+              <p class="gallery__price">$69.000 COP</p>
             </div>
           </article>
 
-          <article class="gallery__item" data-category="hombre">
+          <article class="gallery__item">
             <div class="gallery__image gallery__image--a"></div>
             <div class="gallery__meta">
-              <p class="gallery__name">Chaqueta "Cyber Punk"</p>
-              <p class="gallery__price">$249.000 COP</p>
-              <p class="gallery__category">Hombre</p>
+              <p class="gallery__name">Pulsera "Code Line"</p>
+              <p class="gallery__price">$59.000 COP</p>
             </div>
           </article>
 
-          <article class="gallery__item" data-category="mujer">
+          <article class="gallery__item">
             <div class="gallery__image gallery__image--b"></div>
             <div class="gallery__meta">
-              <p class="gallery__name">Vestido "Matrix Flow"</p>
-              <p class="gallery__price">$199.000 COP</p>
-              <p class="gallery__category">Mujer</p>
+              <p class="gallery__name">Anillo "Volt Ring"</p>
+              <p class="gallery__price">$89.000 COP</p>
+            </div>
+          </article>
+
+          <article class="gallery__item">
+            <div class="gallery__image gallery__image--c"></div>
+            <div class="gallery__meta">
+              <p class="gallery__name">Aretes "Neon Drop"</p>
+              <p class="gallery__price">$49.000 COP</p>
+            </div>
+          </article>
+
+          <article class="gallery__item">
+            <div class="gallery__image gallery__image--d"></div>
+            <div class="gallery__meta">
+              <p class="gallery__name">Gargantilla "Matrix"</p>
+              <p class="gallery__price">$99.000 COP</p>
             </div>
           </article>
         </div>
@@ -127,47 +131,5 @@
     </div>
   </main>
 
-  <script>
-    // Obtener parámetro cat de URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const category = urlParams.get('cat') || 'todos';
-    
-    // Actualizar título
-    const titleEl = document.getElementById('ropaTitle');
-    if (category === 'hombre') {
-      titleEl.textContent = 'Ropa — Hombre';
-    } else if (category === 'mujer') {
-      titleEl.textContent = 'Ropa — Mujer';
-    } else {
-      titleEl.textContent = 'Ropa — Todo';
-    }
-
-    // Filtrar productos
-    const items = document.querySelectorAll('.gallery__item');
-    items.forEach(item => {
-      const itemCat = item.getAttribute('data-category');
-      if (category === 'todos' || category === itemCat) {
-        item.style.display = 'flex';
-      } else {
-        item.style.display = 'none';
-      }
-    });
-
-    // Marcar tab activo
-    const tabs = document.querySelectorAll('.filter-tab');
-    tabs.forEach(tab => {
-      const tabCat = tab.getAttribute('data-cat');
-      if (tabCat === category) {
-        tab.classList.add('is-active');
-      } else {
-        tab.classList.remove('is-active');
-      }
-      
-      // Click handler para cambiar filtro
-      tab.addEventListener('click', () => {
-        window.location.href = `./ropa.html?cat=${tabCat}`;
-      });
-    });
-  </script>
 </body>
 </html>

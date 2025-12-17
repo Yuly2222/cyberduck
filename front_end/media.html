@@ -1,16 +1,17 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>¿Qué hay de nuevo? — Cyberduck</title>
-  <meta name="description" content="Novedades de Cyberduck: ropa, accesorios y figuras 3D con estética neón." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media — Cyberduck</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;700;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles/main.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&family=Oxanium:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/main.css">
 </head>
+
 <body>
+  <!-- HEADER -->
   <header class="header">
     <div class="container header__inner">
       <div class="brand">
@@ -54,47 +55,39 @@
 
   <main>
     <div class="container">
-      <section class="section section--nuevo">
+      <section class="section section--media">
         <div class="section__head">
-          <h1 class="section__title">¿qué hay de nuevo?</h1>
+          <h1 class="section__title">Media</h1>
           <a class="viewall" href="./index.html">volver al inicio</a>
         </div>
 
-        <div class="gallery">
-          <article class="gallery__item">
-            <div class="gallery__image gallery__image--a"></div>
-            <div class="gallery__meta">
-              <p class="gallery__name">Sweater “Cyberduck Grid”</p>
-              <p class="gallery__price">$149.000 COP</p>
+        <div class="biggrid">
+          <article class="bigcard">
+            <div class="bigcard__visual">
+              <div class="bigcard__badge">📷</div>
+            </div>
+            <div class="bigcard__content">
+              <h3 class="bigcard__title">INSTAGRAM</h3>
+              <p class="bigcard__text">Síguenos para ver drops exclusivos, behind the scenes y contenido que no verás en ningún otro lado.</p>
+              <a class="btn btn--primary" href="https://instagram.com/cyberduck_oficial" target="_blank" rel="noopener noreferrer">seguir en instagram →</a>
             </div>
           </article>
 
-          <article class="gallery__item">
-            <div class="gallery__image gallery__image--b"></div>
-            <div class="gallery__meta">
-              <p class="gallery__name">Box set “Neon Drop”</p>
-              <p class="gallery__price">$129.000 COP</p>
+          <article class="bigcard">
+            <div class="bigcard__visual bigcard__visual--alt">
+              <div class="bigcard__badge chip--magenta">💬</div>
             </div>
-          </article>
-
-          <article class="gallery__item">
-            <div class="gallery__image gallery__image--c"></div>
-            <div class="gallery__meta">
-              <p class="gallery__name">Botella “Black Signal”</p>
-              <p class="gallery__price">$89.000 COP</p>
-            </div>
-          </article>
-
-          <article class="gallery__item">
-            <div class="gallery__image gallery__image--d"></div>
-            <div class="gallery__meta">
-              <p class="gallery__name">Estrella 3D “Volt Star”</p>
-              <p class="gallery__price">$99.000 COP</p>
+            <div class="bigcard__content">
+              <h3 class="bigcard__title">WHATSAPP</h3>
+              <p class="bigcard__text">Contáctanos directo por WhatsApp para pedidos personalizados, dudas o cotizaciones.</p>
+              <a class="btn btn--primary" href="https://wa.me/573108182572" target="_blank" rel="noopener noreferrer">abrir whatsapp →</a>
             </div>
           </article>
         </div>
       </section>
     </div>
   </main>
+
+  <script src="./scripts/main.js"></script>
 </body>
 </html>
