@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CYBERDUCK — tienda alternativa</title>
+  <meta name="description" content="Cyberduck: ropa alternativa, collares, faldas y figuras impresas en 3D. Estética neón sobre negro." />
+
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;700;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./styles/main.css" />
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header__inner">
+      <div class="brand">
+        <div class="brand__logo-group">
+          <img src="./imgs/logo.png" alt="Cyberduck logo" class="brand__img">
+          <div class="brand__logo">CYBERDUCK</div>
+        </div>
+        <nav class="nav" aria-label="navegación principal">
+          <a class="nav__link" href="#nuevo">¿qué hay de nuevo?</a>
+          <a class="nav__link" href="#ropa">ropa</a>
+          <a class="nav__link" href="#accesorios">accesorios</a>
+          <a class="nav__link" href="#impresion3d">impresión 3D</a>
+          <a class="nav__link" href="#media">media</a>
+          <a class="nav__link" href="#nosotros">nosotros</a>
+          <a class="nav__custom" href="#custom3d">✨ personaliza tu 3D ✨</a>
+        </nav>
+      </div>
+
+      <div class="header__actions">
+        <a class="pill pill--neon" href="#login">iniciar sesión</a>
+        <button class="iconbtn" type="button" aria-label="Idioma">ES</button>
+        <button class="iconbtn" type="button" aria-label="Buscar">⌕</button>
+        <button class="iconbtn" type="button" aria-label="Carrito">🛒</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- HERO / SLIDER -->
+      <section class="hero" aria-label="destacados">
+        <div class="slider" id="slider">
+          <!-- Slide 1 -->
+          <article class="slide is-active" data-slide>
+            <div class="slide__visual">
+              <div class="shot">
+                <div class="shot__inner" aria-hidden="true">
+                  <!-- Placeholder SVG -->
+                  <svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M56 144c0-44 34-80 76-80 34 0 62 24 72 56 20 6 34 24 34 46 0 28-22 50-50 50H110c-30 0-54-24-54-54z" stroke="rgba(233,238,251,.92)" stroke-width="10"/>
+                    <path d="M96 128c2-16 16-28 34-28h20" stroke="rgba(0,229,255,.95)" stroke-width="10" stroke-linecap="round"/>
+                    <path d="M152 116h28c12 0 22 10 22 22 0 10-6 18-14 21" stroke="rgba(255,43,214,.9)" stroke-width="10" stroke-linecap="round"/>
+                    <circle cx="120" cy="118" r="6" fill="rgba(233,238,251,.92)"/>
+                    <path d="M128 164c18 0 34-8 44-20" stroke="rgba(139,255,74,.9)" stroke-width="10" stroke-linecap="round"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="slide__content">
+              <p class="kicker">drop destacado</p>
+              <h1 class="headline">FIGURAS 3D “NEON DUCK”</h1>
+              <p class="subhead">
+                Colección limitada de figuras impresas en 3D con vibe cyberpunk.
+                Perfectas para escritorio, repisas o como regalo raro (en el buen sentido).
+              </p>
+              <div class="cta">
+                <a class="btn btn--primary" href="#impresion3d">comprar ahora →</a>
+                <a class="btn" href="#">sobre la colección</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 2 -->
+          <article class="slide" data-slide>
+            <div class="slide__visual">
+              <div class="shot">
+                <div class="shot__inner" aria-hidden="true">
+                  <svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M72 62h112v132H72z" stroke="rgba(233,238,251,.92)" stroke-width="10"/>
+                    <path d="M92 92h72" stroke="rgba(0,229,255,.95)" stroke-width="10" stroke-linecap="round"/>
+                    <path d="M92 122h92" stroke="rgba(255,43,214,.9)" stroke-width="10" stroke-linecap="round"/>
+                    <path d="M92 152h66" stroke="rgba(139,255,74,.9)" stroke-width="10" stroke-linecap="round"/>
+                    <path d="M102 208c20-10 40-10 60 0" stroke="rgba(233,238,251,.75)" stroke-width="10" stroke-linecap="round"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="slide__content">
+              <p class="kicker">básicos</p>
+              <h2 class="headline">CAMISETAS, FALDAS Y MÁS</h2>
+              <p class="subhead">
+                Ropa alternativa con cortes limpios y detalles neón. Negro profundo,
+                tipografía agresiva y caos controlado.
+              </p>
+              <div class="cta">
+                <a class="btn btn--primary" href="#ropa">ver ropa →</a>
+                <a class="btn" href="#accesorios">ver accesorios</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Slide 3 -->
+          <article class="slide" data-slide>
+            <div class="slide__visual">
+              <div class="shot">
+                <div class="shot__inner" aria-hidden="true">
+                  <svg viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M128 40c28 0 52 18 60 44 16 4 28 18 28 36 0 22-18 40-40 40h-16" stroke="rgba(233,238,251,.92)" stroke-width="10" stroke-linecap="round"/>
+                    <path d="M96 92c0-20 16-36 36-36" stroke="rgba(0,229,255,.95)" stroke-width="10" stroke-linecap="round"/>
+                    <path d="M40 152c26-30 58-46 88-46 24 0 46 10 66 30" stroke="rgba(255,43,214,.9)" stroke-width="10" stroke-linecap="round"/>
+                    <path d="M80 190h96" stroke="rgba(139,255,74,.9)" stroke-width="10" stroke-linecap="round"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="slide__content">
+              <p class="kicker">accesorios</p>
+              <h2 class="headline">COLLARES Y PIEZAS RARAS</h2>
+              <p class="subhead">
+                Cadenas, dijes, pins y objetos para completar el look.
+                Si brilla con neón y se ve ligeramente peligroso, probablemente está aquí.
+              </p>
+              <div class="cta">
+                <a class="btn btn--primary" href="#accesorios">comprar accesorios →</a>
+                <a class="btn" href="#">guía de tallas</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Controles -->
+          <div class="slider__controls" aria-label="controles del carrusel">
+            <button class="arrow" id="prev" type="button" aria-label="Anterior">←</button>
+
+            <div class="dots" id="dots" aria-label="Indicadores"></div>
+
+            <button class="arrow" id="next" type="button" aria-label="Siguiente">→</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- NUEVO -->
+      <section id="nuevo" class="section">
+        <div class="section__head">
+          <h2 class="section__title">¿qué hay de nuevo?</h2>
+          <a class="viewall" href="#">mostrar todo</a>
+        </div>
+
+        <div class="grid">
+          <a class="card" href="#">
+            <div class="card__thumb">
+              <span class="chip chip--neon">nuevo</span>
+              <div class="thumb__hint">Dije / accesorios</div>
+            </div>
+            <div class="card__body">
+              <p class="card__name">Dije “Circuit Hex”</p>
+              <div class="price">
+                <span class="price__base">$79.000 COP</span>
+                <span class="price__sale">$69.000 COP</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="card" href="#">
+            <div class="card__thumb">
+              <span class="chip">3D</span>
+              <div class="thumb__hint">Figura impresa</div>
+            </div>
+            <div class="card__body">
+              <p class="card__name">Mini “Cyberduck”</p>
+              <div class="price">
+                <span class="price__base">$49.000 COP</span>
+                <span class="price__sale">$44.000 COP</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="card" href="#">
+            <div class="card__thumb">
+              <span class="chip">ropa</span>
+              <div class="thumb__hint">Camiseta</div>
+            </div>
+            <div class="card__body">
+              <p class="card__name">Camiseta “Neon Grid”</p>
+              <div class="price">
+                <span class="price__base">$89.000 COP</span>
+                <span class="price__sale">$79.000 COP</span>
+              </div>
+            </div>
+          </a>
+
+          <a class="card card--cta" href="#">
+            <div class="card__thumb card__thumb--cta">
+              <div class="ctaBox">→</div>
+            </div>
+            <div class="card__body">
+              <p class="card__name">Explorar todo</p>
+              <div class="price">
+                <span class="price__base">Catálogo completo</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- BLOQUES GRANDES (estilo gift card / comunidad) -->
+      <section class="section">
+        <div class="biggrid">
+          <article class="bigcard">
+            <div class="bigcard__visual">
+              <div class="bigcard__badge">gift</div>
+            </div>
+            <div class="bigcard__content">
+              <h3 class="bigcard__title">TARJETA DE REGALO</h3>
+              <p class="bigcard__text">Regala Cyberduck a tu combo. Rápido, fácil y sin equivocarte de talla.</p>
+              <a class="btn btn--primary" href="#">comprar ahora</a>
+            </div>
+          </article>
+
+          <article class="bigcard">
+            <div class="bigcard__visual bigcard__visual--alt">
+              <div class="bigcard__badge chip--magenta">club</div>
+            </div>
+            <div class="bigcard__content">
+              <h3 class="bigcard__title">ÚNETE A LA COMUNIDAD</h3>
+              <p class="bigcard__text">Accede a drops exclusivos, preventas y descuentos secretos (shhh).</p>
+              <a class="btn btn--primary" href="#">entrar</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div>
+        <h3 class="footer__title">Cyberduck</h3>
+        <p class="footer__tiny">
+          Estética neón en negro, objetos alternativos y prints 3D.
+          Hecho con cariño y un poquito de electricidad.
+        </p>
+      </div>
+
+      <div>
+        <h3 class="footer__title">Info</h3>
+        <a class="footer__link" href="#">boletín</a>
+        <a class="footer__link" href="#">envíos</a>
+        <a class="footer__link" href="#">privacidad</a>
+      </div>
+
+      <div>
+        <h3 class="footer__title">Ayuda</h3>
+        <a class="footer__link" href="#">contáctanos</a>
+        <a class="footer__link" href="#">preguntas frecuentes</a>
+        <a class="footer__link" href="#">aviso legal</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="./scripts/main.js"></script>
+</body>
+</html>
