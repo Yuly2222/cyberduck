@@ -90,32 +90,37 @@ body::after{
   backdrop-filter: blur(12px);
   background: linear-gradient(to bottom, rgba(6,7,10,.85), rgba(6,7,10,.45));
   border-bottom: 1px solid var(--line);
+  overflow: hidden;
 }
 
 .header__inner{
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 28px;
-  padding: 14px 0 12px;
+  gap: 16px;
+  padding: 12px 0 10px;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 .brand{
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   line-height: 1;
-  flex-grow: 1;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 .brand__logo-group{
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   line-height: 1;
+  min-width: 0;
 }
 .brand__img{
-  width: 80px;
-  height: 80px;
+  width: 64px;
+  height: 64px;
   object-fit: contain;
   filter: drop-shadow(0 0 20px rgba(0,229,255,.32));
   flex-shrink: 0;
@@ -125,9 +130,10 @@ body::after{
   font-weight: 800;
   letter-spacing: .14em;
   text-transform: uppercase;
-  font-size: clamp(48px, 7vw, 96px);
+  font-size: clamp(36px, 5vw, 72px);
   text-shadow: 0 0 24px rgba(0,229,255,.45), 0 0 48px rgba(255,43,214,.18);
   white-space: nowrap;
+  min-width: 0;
 }
 .brand__tag{
   display: none;
@@ -136,18 +142,20 @@ body::after{
 .nav{
   display: flex;
   align-items: center;
-  gap: 24px;
-  flex-wrap: nowrap;
+  gap: 16px;
+  flex-wrap: wrap;
   justify-content: flex-start;
+  width: 100%;
+  order: 3;
 }
 .nav__link{
   font-family: Oxanium, Inter, sans-serif;
   text-transform: uppercase;
   font-weight: 700;
-  font-size: 14px;
-  letter-spacing: .16em;
+  font-size: 12px;
+  letter-spacing: .14em;
   color: rgba(233,238,251,.82);
-  padding: 8px 10px;
+  padding: 6px 8px;
   border-radius: 999px;
   border: 1px solid transparent;
   white-space: nowrap;
@@ -163,10 +171,10 @@ body::after{
   font-family: Oxanium, Inter, sans-serif;
   text-transform: uppercase;
   font-weight: 900;
-  font-size: 13px;
-  letter-spacing: .16em;
+  font-size: 11px;
+  letter-spacing: .14em;
   color: rgba(139,255,74,.95);
-  padding: 10px 14px;
+  padding: 8px 12px;
   border-radius: 999px;
   border: 1.5px solid rgba(139,255,74,.50);
   background: rgba(139,255,74,.12);
@@ -184,6 +192,64 @@ body::after{
   box-shadow: 0 0 24px rgba(139,255,74,.35), inset 0 0 16px rgba(139,255,74,.12);
   color: rgba(139,255,74,.99);
   transform: scale(1.05);
+}
+
+.gallery{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+.gallery__item{
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,.10);
+  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  box-shadow: 0 8px 24px rgba(0,0,0,.35);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.gallery__image{
+  aspect-ratio: 1 / 1;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  background: radial-gradient(260px 220px at 30% 30%, rgba(0,229,255,.16), transparent 62%),
+              radial-gradient(260px 220px at 75% 70%, rgba(255,43,214,.14), transparent 64%),
+              linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.28));
+}
+.gallery__image::after{
+  content:"";
+  position:absolute;
+  inset: 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(6,7,10,.55);
+  box-shadow: inset 0 0 24px rgba(0,0,0,.35);
+}
+.gallery__image--a{ background: radial-gradient(240px 240px at 40% 30%, rgba(0,229,255,.25), transparent 60%), linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); }
+.gallery__image--b{ background: radial-gradient(240px 240px at 50% 50%, rgba(255,43,214,.22), transparent 62%), linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); }
+.gallery__image--c{ background: radial-gradient(240px 240px at 60% 40%, rgba(139,255,74,.24), transparent 62%), linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); }
+.gallery__image--d{ background: radial-gradient(240px 240px at 45% 45%, rgba(0,229,255,.18), transparent 62%), radial-gradient(220px 200px at 70% 70%, rgba(255,43,214,.16), transparent 60%), linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); }
+
+.gallery__meta{
+  padding: 12px 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.gallery__name{
+  margin: 0;
+  font-family: Oxanium, Inter, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: .10em;
+  font-weight: 900;
+  font-size: 12px;
+  color: rgba(233,238,251,.92);
+}
+.gallery__price{
+  margin: 0;
+  font-weight: 800;
+  color: rgba(233,238,251,.82);
 }
 
 .header__actions{
