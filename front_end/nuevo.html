@@ -20,7 +20,14 @@
         </a>
         <nav class="nav" aria-label="navegación principal">
           <a class="nav__link" href="./nuevo.html">¿qué hay de nuevo?</a>
-          <a class="nav__link" href="./index.html#ropa">ropa</a>
+          <div class="nav__item nav__item--dropdown">
+            <a class="nav__link nav__link--parent" href="./ropa.html?cat=todos" aria-haspopup="true">ropa <span class="nav__chevron" aria-hidden="true"></span></a>
+            <div class="nav__dropdown" role="menu">
+              <a class="nav__dropdown-link" href="./ropa.html?cat=todos" role="menuitem">Todo</a>
+              <a class="nav__dropdown-link" href="./ropa.html?cat=hombre" role="menuitem">Hombre</a>
+              <a class="nav__dropdown-link" href="./ropa.html?cat=mujer" role="menuitem">Mujer</a>
+            </div>
+          </div>
           <a class="nav__link" href="./index.html#accesorios">accesorios</a>
           <a class="nav__link" href="./index.html#impresion3d">impresión 3D</a>
           <a class="nav__link" href="./index.html#media">media</a>

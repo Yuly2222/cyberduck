@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ropa — Cyberduck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&family=Oxanium:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/main.css">
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header__inner">
+      <div class="brand">
+        <a class="brand__logo-group" href="./index.html">
+          <img src="./imgs/logo.png" alt="Cyberduck logo" class="brand__img">
+          <div class="brand__logo">CYBERDUCK</div>
+        </a>
+        <nav class="nav" aria-label="navegación principal">
+          <a class="nav__link" href="./nuevo.html">¿qué hay de nuevo?</a>
+          <div class="nav__item nav__item--dropdown">
+            <a class="nav__link nav__link--parent" href="./ropa.html?cat=todos" aria-haspopup="true">ropa <span class="nav__chevron" aria-hidden="true"></span></a>
+            <div class="nav__dropdown" role="menu">
+              <a class="nav__dropdown-link" href="./ropa.html?cat=todos" role="menuitem">Todo</a>
+              <a class="nav__dropdown-link" href="./ropa.html?cat=hombre" role="menuitem">Hombre</a>
+              <a class="nav__dropdown-link" href="./ropa.html?cat=mujer" role="menuitem">Mujer</a>
+            </div>
+          </div>
+          <a class="nav__link" href="./index.html#accesorios">accesorios</a>
+          <a class="nav__link" href="./index.html#impresion3d">impresión 3D</a>
+          <a class="nav__link" href="./index.html#media">media</a>
+          <a class="nav__link" href="./index.html#nosotros">nosotros</a>
+          <a class="nav__custom" href="./index.html#custom3d">✨ personaliza tu 3D ✨</a>
+        </nav>
+      </div>
+
+      <div class="header__actions">
+        <a class="pill pill--neon" href="./index.html#login">iniciar sesión</a>
+        <button class="iconbtn" type="button" aria-label="Idioma">ES</button>
+        <button class="iconbtn" type="button" aria-label="Buscar">⌕</button>
+        <button class="iconbtn" type="button" aria-label="Carrito">🛒</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="section section--ropa">
+        <div class="section__head">
+          <h1 class="section__title" id="ropaTitle">Ropa</h1>
+          <a class="viewall" href="./index.html">volver al inicio</a>
+        </div>
+
+        <div class="filter-tabs" id="filterTabs">
+          <button class="filter-tab" data-cat="todos">Todo</button>
+          <button class="filter-tab" data-cat="hombre">Hombre</button>
+          <button class="filter-tab" data-cat="mujer">Mujer</button>
+        </div>
+
+        <div class="gallery" id="ropaGallery">
+          <!-- Productos Todos/Hombre -->
+          <article class="gallery__item" data-category="hombre">
+            <div class="gallery__image gallery__image--a"></div>
+            <div class="gallery__meta">
+              <p class="gallery__name">Sweater "Cyberduck Grid"</p>
+              <p class="gallery__price">$149.000 COP</p>
+              <p class="gallery__category">Hombre</p>
+            </div>
+          </article>
+
+          <article class="gallery__item" data-category="hombre">
+            <div class="gallery__image gallery__image--b"></div>
+            <div class="gallery__meta">
+              <p class="gallery__name">Camiseta "Neon Code"</p>
+              <p class="gallery__price">$89.000 COP</p>
+              <p class="gallery__category">Hombre</p>
+            </div>
+          </article>
+
+          <article class="gallery__item" data-category="mujer">
+            <div class="gallery__image gallery__image--c"></div>
+            <div class="gallery__meta">
+              <p class="gallery__name">Hoodie "Digital Wave"</p>
+              <p class="gallery__price">$169.000 COP</p>
+              <p class="gallery__category">Mujer</p>
+            </div>
+          </article>
+
+          <article class="gallery__item" data-category="mujer">
+            <div class="gallery__image gallery__image--d"></div>
+            <div class="gallery__meta">
+              <p class="gallery__name">Top "Glitch Effect"</p>
+              <p class="gallery__price">$79.000 COP</p>
+              <p class="gallery__category">Mujer</p>
+            </div>
+          </article>
+
+          <article class="gallery__item" data-category="hombre">
+            <div class="gallery__image gallery__image--a"></div>
+            <div class="gallery__meta">
+              <p class="gallery__name">Chaqueta "Cyber Punk"</p>
+              <p class="gallery__price">$249.000 COP</p>
+              <p class="gallery__category">Hombre</p>
+            </div>
+          </article>
+
+          <article class="gallery__item" data-category="mujer">
+            <div class="gallery__image gallery__image--b"></div>
+            <div class="gallery__meta">
+              <p class="gallery__name">Vestido "Matrix Flow"</p>
+              <p class="gallery__price">$199.000 COP</p>
+              <p class="gallery__category">Mujer</p>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    // Obtener parámetro cat de URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const category = urlParams.get('cat') || 'todos';
+    
+    // Actualizar título
+    const titleEl = document.getElementById('ropaTitle');
+    if (category === 'hombre') {
+      titleEl.textContent = 'Ropa — Hombre';
+    } else if (category === 'mujer') {
+      titleEl.textContent = 'Ropa — Mujer';
+    } else {
+      titleEl.textContent = 'Ropa — Todo';
+    }
+
+    // Filtrar productos
+    const items = document.querySelectorAll('.gallery__item');
+    items.forEach(item => {
+      const itemCat = item.getAttribute('data-category');
+      if (category === 'todos' || category === itemCat) {
+        item.style.display = 'flex';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+
+    // Marcar tab activo
+    const tabs = document.querySelectorAll('.filter-tab');
+    tabs.forEach(tab => {
+      const tabCat = tab.getAttribute('data-cat');
+      if (tabCat === category) {
+        tab.classList.add('is-active');
+      } else {
+        tab.classList.remove('is-active');
+      }
+      
+      // Click handler para cambiar filtro
+      tab.addEventListener('click', () => {
+        window.location.href = `./ropa.html?cat=${tabCat}`;
+      });
+    });
+  </script>
+</body>
+</html>
