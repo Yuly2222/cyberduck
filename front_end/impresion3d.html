@@ -40,7 +40,7 @@
           </div>
           <a class="nav__link" href="./media.html">media</a>
           <a class="nav__link" href="./nosotros.html">nosotros</a>
-          <a class="nav__custom" href="./index.html#custom3d">✨ personaliza tu 3D ✨</a>
+          <a class="nav__custom" href="./impresion3d.html">✨ personaliza tu 3D ✨</a>
         </nav>
       </div>
 
@@ -66,6 +66,64 @@
           <button class="filter-tab" data-cat="figuras">Figuras</button>
           <button class="filter-tab" data-cat="coleccion">Colección</button>
         </div>
+
+        <!-- Personaliza tu 3D -->
+        <section class="section customize-section" id="custom3d">
+          <div class="section__head">
+            <h2 class="section__title">Personaliza tu 3D</h2>
+            <p class="viewall" style="pointer-events:none; opacity:.9">Elige un formato para personalizar</p>
+          </div>
+
+          <div class="customize-grid">
+            <article class="custom-card gallery__item" data-custom="camiseta-buzo">
+              <div class="custom-thumb gallery__image gallery__image--a"></div>
+              <div class="custom-meta">
+                <div class="custom-title">Camiseta / Buzo</div>
+                <div class="custom-sub">Estampa 3D y prueba de tallas</div>
+              </div>
+            </article>
+
+            <article class="custom-card gallery__item" data-custom="skin-minecraft">
+              <div class="custom-thumb gallery__image gallery__image--b"></div>
+              <div class="custom-meta">
+                <div class="custom-title">Skin — Minecraft</div>
+                <div class="custom-sub">Texturas y pose a medida</div>
+              </div>
+            </article>
+
+            <article class="custom-card gallery__item" data-custom="skin-roblox">
+              <div class="custom-thumb gallery__image gallery__image--c"></div>
+              <div class="custom-meta">
+                <div class="custom-title">Skin — Roblox</div>
+                <div class="custom-sub">Adaptación para avatares</div>
+              </div>
+            </article>
+
+            <article class="custom-card gallery__item" data-custom="llavero">
+              <div class="custom-thumb gallery__image gallery__image--d"></div>
+              <div class="custom-meta">
+                <div class="custom-title">Llavero</div>
+                <div class="custom-sub">Miniatura personalizada</div>
+              </div>
+            </article>
+
+            <article class="custom-card gallery__item" data-custom="figura">
+              <div class="custom-thumb gallery__image gallery__image--a"></div>
+              <div class="custom-meta">
+                <div class="custom-title">Figura</div>
+                <div class="custom-sub">Escala y pose a elección</div>
+              </div>
+            </article>
+
+            <article class="custom-card gallery__item" data-custom="cosplay">
+              <div class="custom-thumb gallery__image gallery__image--b"></div>
+              <div class="custom-meta">
+                <div class="custom-title">Cosplay</div>
+                <div class="custom-sub">Accesorios y props 3D</div>
+              </div>
+            </article>
+          </div>
+        </section>
 
         <div class="gallery" id="impresion3dGallery">
           <!-- Llaveros -->
@@ -216,6 +274,27 @@
         }
 
         const prod = { name, price, category, image, desc: '' };
+        localStorage.setItem('cyberduck:selectedProduct', JSON.stringify(prod));
+        window.location.href = './product.html';
+      });
+    });
+
+    // Handlers para Personaliza tu 3D
+    const customCards = document.querySelectorAll('.custom-card');
+    customCards.forEach(card => {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => {
+        const type = card.getAttribute('data-custom') || 'personalizado';
+        const title = card.querySelector('.custom-title')?.textContent || 'Personalizado';
+        const price = 'Precio a cotizar';
+        const imgDiv = card.querySelector('.custom-thumb');
+        let image = '';
+        if (imgDiv) {
+          const bg = getComputedStyle(imgDiv).backgroundImage;
+          image = (bg && bg !== 'none') ? bg : '';
+        }
+
+        const prod = { name: `Personaliza — ${title}`, price, category: 'personalizado', image, desc: `Personalización: ${type}` };
         localStorage.setItem('cyberduck:selectedProduct', JSON.stringify(prod));
         window.location.href = './product.html';
       });
