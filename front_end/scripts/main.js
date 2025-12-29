@@ -89,6 +89,9 @@
     }
 
     ensureCartUI();
+    // make checkout link go to checkout page
+    const cartCheckoutLink = document.getElementById('cartCheckout');
+    if(cartCheckoutLink){ cartCheckoutLink.setAttribute('href', './checkout.html'); }
 
     // Attach direct listeners to known product elements for reliability
     const items = Array.from(document.querySelectorAll('.gallery__item, .card'));
@@ -126,6 +129,21 @@
 
       const cart = readCart();
       countEl.textContent = String(cart.length || 0);
+
+      // Enable/disable checkout link depending on cart contents (do this before early return)
+      const checkoutLink = document.getElementById('cartCheckout');
+      if(checkoutLink){
+        if(!cart.length){
+          checkoutLink.classList.add('is-disabled');
+          checkoutLink.setAttribute('aria-disabled', 'true');
+          checkoutLink.setAttribute('href', '#');
+        } else {
+          checkoutLink.classList.remove('is-disabled');
+          checkoutLink.removeAttribute('aria-disabled');
+          checkoutLink.setAttribute('href', './checkout.html');
+        }
+      }
+
       itemsWrap.innerHTML = '';
       if(!cart.length){
         itemsWrap.innerHTML = '<div class="cart-empty">No hay productos en el carrito</div>';
@@ -148,8 +166,16 @@
 
         meta.appendChild(name); meta.appendChild(price);
 
-        const rm = document.createElement('button'); rm.className = 'cart-item__remove'; rm.type = 'button'; rm.innerHTML = '✕';
-        rm.addEventListener('click', () => { cart.splice(idx,1); writeCart(cart); renderCart(); });
+          const rm = document.createElement('button'); rm.className = 'cart-item__remove'; rm.type = 'button'; rm.innerHTML = '✕';
+          rm.addEventListener('click', function(e){
+            e.stopPropagation();
+            cart.splice(idx,1);
+            writeCart(cart);
+            renderCart();
+            // keep dropdown open after removing
+            const dd = document.getElementById('cartDropdown'); if(dd) dd.hidden = false;
+            try{ window.dispatchEvent(new Event('cyberduck:cart-updated')); }catch(err){}
+          });
 
         itemEl.appendChild(thumb); itemEl.appendChild(meta); itemEl.appendChild(rm);
         itemsWrap.appendChild(itemEl);
@@ -161,10 +187,20 @@
       });
 
       totalEl.textContent = 'Total: ' + (total ? formatPrice(total) : '—');
+
+      
     }
 
     // Listen for explicit cart-updated events (fired after cart change in-page)
-    window.addEventListener('cyberduck:cart-updated', function(){ renderCart(); });
+    window.addEventListener('cyberduck:cart-updated', function(){
+      renderCart();
+      // pulse animation for visual feedback
+      const btn = document.getElementById('cartButton');
+      if(btn){
+        btn.classList.add('is-pulse');
+        setTimeout(() => btn.classList.remove('is-pulse'), 480);
+      }
+    });
 
     document.addEventListener('click', function(e){
       const cartBtn = e.target.closest('#cartButton');

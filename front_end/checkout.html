@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pagar — Cyberduck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;700;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles/main.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <div class="brand">
+        <a class="brand__logo-group" href="./index.html">
+          <img src="./imgs/logo.png" alt="Cyberduck logo" class="brand__img">
+          <div class="brand__logo">CYBERDUCK</div>
+        </a>
+        <nav class="nav" aria-label="navegación principal">
+          <a class="nav__link" href="./nuevo.html">¿qué hay de nuevo?</a>
+          <a class="nav__link" href="./ropa.html?cat=todos">ropa</a>
+          <a class="nav__link" href="./impresion3d.html?cat=todos">impresión 3D</a>
+          <a class="nav__link" href="./accesorios.html">accesorios</a>
+          <a class="nav__link" href="./media.html">media</a>
+        </nav>
+      </div>
+
+      <div class="header__actions">
+        <a class="pill pill--neon" href="#login">iniciar sesión</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="section">
+        <div class="section__head">
+          <h1 class="section__title">Pagar</h1>
+          <a class="viewall" href="./index.html">volver al inicio</a>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 360px; gap:20px; align-items:start;">
+          <form id="checkoutForm" style="background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)); padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,.04);">
+            <h2 style="margin:0 0 12px;">Datos del comprador</h2>
+
+            <label style="display:block; margin-bottom:10px;">
+              <div style="font-weight:800; font-size:12px; margin-bottom:6px;">Nombre completo</div>
+              <input id="fullname" name="fullname" type="text" required style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,.06); background:transparent; color:var(--text);" placeholder="Juan Pérez" />
+            </label>
+
+            <label style="display:block; margin-bottom:10px;">
+              <div style="font-weight:800; font-size:12px; margin-bottom:6px;">Correo</div>
+              <input id="email" name="email" type="email" required style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,.06); background:transparent; color:var(--text);" placeholder="juan@correo.com" />
+            </label>
+
+            <label style="display:block; margin-bottom:10px;">
+              <div style="font-weight:800; font-size:12px; margin-bottom:6px;">Celular</div>
+              <input id="phone" name="phone" type="tel" required style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,.06); background:transparent; color:var(--text);" placeholder="+57 3xx xxx xxxx" />
+            </label>
+
+            <label style="display:block; margin-bottom:10px;">
+              <div style="font-weight:800; font-size:12px; margin-bottom:6px;">Código de descuento (opcional)</div>
+              <input id="discount" name="discount" type="text" style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,.06); background:transparent; color:var(--text);" placeholder="PROMO2025" />
+            </label>
+
+            <label style="display:block; margin-bottom:16px;">
+              <div style="font-weight:800; font-size:12px; margin-bottom:6px;">Medio de pago</div>
+              <select id="paymentMethod" name="paymentMethod" required style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,.06); background:transparent; color:var(--text);">
+                <option value="nequi">Nequi</option>
+                <option value="tarjeta">Tarjeta</option>
+              </select>
+            </label>
+
+            <div style="display:flex; gap:10px; align-items:center;">
+              <button id="checkoutSubmit" class="btn btn--primary" type="submit">Enviar pedido →</button>
+              <a class="btn" href="./index.html">Seguir comprando</a>
+            </div>
+          </form>
+
+          <aside style="background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)); padding:14px; border-radius:12px; border:1px solid rgba(255,255,255,.04);">
+            <h3 style="margin:0 0 10px;">Resumen del carrito</h3>
+            <div id="checkoutItems" style="display:flex; flex-direction:column; gap:10px; max-height:420px; overflow:auto; margin-bottom:12px;"></div>
+            <div id="checkoutTotal" style="font-weight:900; margin-top:6px;">Total: —</div>
+          </aside>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    (function(){
+      function readCart(){ try{ const raw = localStorage.getItem('cyberduck:cart'); return raw ? JSON.parse(raw) : []; }catch(e){ return []; } }
+      function formatPrice(p){ return p; }
+
+      const itemsWrap = document.getElementById('checkoutItems');
+      const totalEl = document.getElementById('checkoutTotal');
+      const cart = readCart();
+      let total = 0;
+      const submitBtn = document.getElementById('checkoutSubmit');
+      if(!cart.length){
+        itemsWrap.innerHTML = '<div style="color:var(--muted)">No hay productos en el carrito.</div>';
+        if(submitBtn){ submitBtn.classList.add('is-disabled'); submitBtn.setAttribute('aria-disabled','true'); }
+      } else {
+        if(submitBtn){ submitBtn.classList.remove('is-disabled'); submitBtn.removeAttribute('aria-disabled'); }
+      }
+      cart.forEach(it => {
+        const el = document.createElement('div');
+        el.style.display='flex'; el.style.gap='8px'; el.style.alignItems='center';
+        el.innerHTML = '<div style="width:56px;height:56px;border-radius:8px;background-size:cover;background-position:center;'+(it.image?('background-image:'+ (it.image.indexOf('url(')===0?it.image:'url('+it.image+')')):'')+'"></div>'+
+          '<div style="flex:1"><div style="font-weight:800">'+(it.name||'Producto')+'</div><div style="color:var(--muted);font-size:13px">'+(it.price||'')+'</div></div>';
+        itemsWrap.appendChild(el);
+        const num = (it.price||'').replace(/[^0-9.,]/g,'').replace(',', '.'); total += parseFloat(num)||0;
+      });
+      totalEl.textContent = 'Total: ' + (total?formatPrice(total):'—');
+
+      // handle submit
+      const form = document.getElementById('checkoutForm');
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const fullname = document.getElementById('fullname').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        if(!fullname||!email||!phone){ alert('Por favor completa los datos obligatorios.'); return; }
+        // fake submit: clear cart and show confirmation
+        localStorage.removeItem('cyberduck:cart');
+        try{ window.dispatchEvent(new Event('cyberduck:cart-updated')); }catch(e){}
+        alert('Pedido recibido. Gracias, ' + fullname + '.');
+        window.location.href = './index.html';
+      });
+    })();
+  </script>
+  <script src="./scripts/main.js"></script>
+</body>
+</html>
