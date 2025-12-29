@@ -48,7 +48,6 @@
         <a class="pill pill--neon" href="./index.html#login">iniciar sesión</a>
         <button class="iconbtn" type="button" aria-label="Idioma">ES</button>
         <button class="iconbtn" type="button" aria-label="Buscar">⌕</button>
-        <button class="iconbtn" type="button" aria-label="Carrito">🛒</button>
       </div>
     </div>
   </header>
@@ -200,6 +199,28 @@
         window.location.href = `./impresion3d.html?cat=${tabCat}`;
       });
     });
+
+    // Hacer que cada producto abra product.html guardando datos en localStorage
+    const printItems = document.querySelectorAll('.gallery__item');
+    printItems.forEach(item => {
+      item.style.cursor = 'pointer';
+      item.addEventListener('click', () => {
+        const name = item.querySelector('.gallery__name')?.textContent || 'Producto';
+        const price = item.querySelector('.gallery__price')?.textContent || '';
+        const category = item.getAttribute('data-category') || '';
+        const imgDiv = item.querySelector('.gallery__image');
+        let image = '';
+        if (imgDiv) {
+          const bg = getComputedStyle(imgDiv).backgroundImage;
+          image = (bg && bg !== 'none') ? bg : '';
+        }
+
+        const prod = { name, price, category, image, desc: '' };
+        localStorage.setItem('cyberduck:selectedProduct', JSON.stringify(prod));
+        window.location.href = './product.html';
+      });
+    });
   </script>
+  <script src="./scripts/main.js"></script>
 </body>
 </html>
