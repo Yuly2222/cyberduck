@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personaliza tu 3D — Cyberduck</title>
+  <link rel="stylesheet" href="./styles/main.css">
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <div class="brand">
+        <a class="brand__logo-group" href="./index.html">
+          <img src="./imgs/logo.png" alt="Cyberduck logo" class="brand__img">
+          <div class="brand__logo">CYBERDUCK</div>
+        </a>
+        <nav class="nav" aria-label="navegación principal">
+          <a class="nav__link" href="./nuevo.html">¿qué hay de nuevo?</a>
+          <div class="nav__item nav__item--dropdown">
+            <a class="nav__link nav__link--parent" href="./ropa.html?cat=todos" aria-haspopup="true">ropa <span class="nav__chevron" aria-hidden="true"></span></a>
+            <div class="nav__dropdown" role="menu">
+              <a class="nav__dropdown-link" href="./ropa.html?cat=todos" role="menuitem">Todo</a>
+              <a class="nav__dropdown-link" href="./ropa.html?cat=hombre" role="menuitem">Hombre</a>
+              <a class="nav__dropdown-link" href="./ropa.html?cat=mujer" role="menuitem">Mujer</a>
+            </div>
+          </div>
+          <a class="nav__link" href="./accesorios.html">accesorios</a>
+          <div class="nav__item nav__item--dropdown">
+            <a class="nav__link nav__link--parent" href="./impresion3d.html?cat=todos" aria-haspopup="true">impresión 3D <span class="nav__chevron" aria-hidden="true"></span></a>
+            <div class="nav__dropdown" role="menu">
+              <a class="nav__dropdown-link" href="./impresion3d.html?cat=llaveros" role="menuitem">Llaveros</a>
+              <a class="nav__dropdown-link" href="./impresion3d.html?cat=figuras" role="menuitem">Figuras</a>
+              <a class="nav__dropdown-link" href="./impresion3d.html?cat=coleccion" role="menuitem">Colección</a>
+            </div>
+          </div>
+          <a class="nav__link" href="./media.html">media</a>
+          <a class="nav__link" href="./nosotros.html">nosotros</a>
+          <a class="nav__custom" href="./personalizar.html">✨ personaliza tu 3D ✨</a>
+        </nav>
+      </div>
+
+      <div class="header__actions">
+        <a class="pill pill--neon" href="#login">iniciar sesión</a>
+        <button class="iconbtn" type="button" aria-label="Idioma">ES</button>
+        <button class="iconbtn" type="button" aria-label="Buscar">⌕</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="section customize-section" id="custom3d">
+        <div class="section__head">
+          <h1 class="section__title">Personaliza tu 3D</h1>
+          <p class="viewall" style="pointer-events:none; opacity:.9">Elige un formato para personalizar</p>
+        </div>
+
+        <div class="customize-grid">
+          <article class="custom-card gallery__item" data-custom="camiseta-buzo">
+            <div class="custom-thumb gallery__image gallery__image--a"></div>
+            <div class="custom-meta">
+              <div class="custom-title">Camiseta / Buzo</div>
+            </div>
+          </article>
+
+          <article class="custom-card gallery__item" data-custom="skin-minecraft">
+            <div class="custom-thumb gallery__image gallery__image--b"></div>
+            <div class="custom-meta">
+              <div class="custom-title">Skin — Minecraft</div>
+            </div>
+          </article>
+
+          <article class="custom-card gallery__item" data-custom="skin-roblox">
+            <div class="custom-thumb gallery__image gallery__image--c"></div>
+            <div class="custom-meta">
+              <div class="custom-title">Skin — Roblox</div>
+            </div>
+          </article>
+
+          <article class="custom-card gallery__item" data-custom="llavero">
+            <div class="custom-thumb gallery__image gallery__image--d"></div>
+            <div class="custom-meta">
+              <div class="custom-title">Llavero</div>
+            </div>
+          </article>
+
+          <article class="custom-card gallery__item" data-custom="figura">
+            <div class="custom-thumb gallery__image gallery__image--a"></div>
+            <div class="custom-meta">
+              <div class="custom-title">Figura</div>
+            </div>
+          </article>
+
+          <article class="custom-card gallery__item" data-custom="cosplay">
+            <div class="custom-thumb gallery__image gallery__image--b"></div>
+            <div class="custom-meta">
+              <div class="custom-title">Cosplay</div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    // Click handlers para la sección de personalización (abre product.html con datos en localStorage)
+    const customCards = document.querySelectorAll('.custom-card');
+    customCards.forEach(card => {
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => {
+        const type = card.getAttribute('data-custom') || 'personalizado';
+        const title = card.querySelector('.custom-title')?.textContent || 'Personalizado';
+        const price = 'Precio a cotizar';
+        const imgDiv = card.querySelector('.custom-thumb');
+        let image = '';
+        if (imgDiv) {
+          const bg = getComputedStyle(imgDiv).backgroundImage;
+          image = (bg && bg !== 'none') ? bg : '';
+        }
+
+        const prod = { name: `Personaliza — ${title}`, price, category: 'personalizado', image, desc: `Personalización: ${type}` };
+        localStorage.setItem('cyberduck:selectedProduct', JSON.stringify(prod));
+        window.location.href = './product.html';
+      });
+    });
+  </script>
+  <script src="./scripts/main.js"></script>
+</body>
+</html>
