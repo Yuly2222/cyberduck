@@ -208,12 +208,42 @@
             }
           })
           .catch(err => { console.warn('No se pudo obtener datos de Otros:', err); });
+      } else if (category === 'todos'){
+        // Fetch all categories and combine them
+        const allScripts = [
+          fetch(EARRINGS_SCRIPT_URL).then(r => r.json()),
+          fetch(COLLARES_SCRIPT_URL).then(r => r.json()),
+          fetch(GARGANTILLAS_SCRIPT_URL).then(r => r.json()),
+          fetch(MANILLAS_SCRIPT_URL).then(r => r.json()),
+          fetch(OTHERS_SCRIPT_URL).then(r => r.json())
+        ];
+        Promise.all(allScripts)
+          .then(results => {
+            const allItems = [];
+            results.forEach(json => {
+              if(json && Array.isArray(json.data) && json.data.length){
+                allItems.push(...json.data);
+              }
+            });
+            if(allItems.length){
+              // Mezclar los items para mostrar surtido
+              function shuffleArray(arr){
+                for(let i = arr.length - 1; i > 0; i--) {
+                  const j = Math.floor(Math.random() * (i + 1));
+                  const tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+                }
+              }
+              shuffleArray(allItems);
+              renderItemsFromSheet(allItems);
+            }
+          })
+          .catch(err => { console.warn('Error al obtener datos de accesorios:', err); });
       } else {
         // Apply simple client-side filter for static items
         const items = document.querySelectorAll('#accesoriosGallery .gallery__item');
         items.forEach(item => {
           const itemCat = item.getAttribute('data-category') || '';
-          if (category === 'todos' || category === itemCat) item.style.display = 'flex'; else item.style.display = 'none';
+          if (category === itemCat) item.style.display = 'flex'; else item.style.display = 'none';
         });
         setupProductClickHandlers('#accesoriosGallery');
       }
