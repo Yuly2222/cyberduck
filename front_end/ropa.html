@@ -25,8 +25,8 @@
             <a class="nav__link nav__link--parent" href="./ropa.html?cat=todos" aria-haspopup="true">ropa <span class="nav__chevron" aria-hidden="true"></span></a>
             <div class="nav__dropdown" role="menu">
               <a class="nav__dropdown-link" href="./ropa.html?cat=todos" role="menuitem">Todo</a>
-              <a class="nav__dropdown-link" href="./ropa.html?cat=hombre" role="menuitem">Hombre</a>
-              <a class="nav__dropdown-link" href="./ropa.html?cat=mujer" role="menuitem">Mujer</a>
+              <a class="nav__dropdown-link" href="./ropa.html?cat=camisetas" role="menuitem">Camisetas</a>
+              <a class="nav__dropdown-link" href="./ropa.html?cat=faldas" role="menuitem">Faldas</a>
             </div>
           </div>
           <a class="nav__link" href="./accesorios.html">accesorios</a>
@@ -62,63 +62,36 @@
 
         <div class="filter-tabs" id="filterTabs">
           <button class="filter-tab" data-cat="todos">Todo</button>
-          <button class="filter-tab" data-cat="hombre">Hombre</button>
-          <button class="filter-tab" data-cat="mujer">Mujer</button>
+          <button class="filter-tab" data-cat="camisetas">Camisetas</button>
+          <button class="filter-tab" data-cat="faldas">Faldas</button>
         </div>
 
         <div class="gallery" id="ropaGallery">
           <!-- Productos Todos/Hombre -->
-          <article class="gallery__item" data-category="hombre">
+          <article class="gallery__item" data-category="camisetas">
             <div class="gallery__image gallery__image--a"></div>
             <div class="gallery__meta">
               <p class="gallery__name">Sweater "Cyberduck Grid"</p>
               <p class="gallery__price">$149.000 COP</p>
-              <p class="gallery__category">Hombre</p>
+              <p class="gallery__category">Camisetas</p>
             </div>
           </article>
 
-          <article class="gallery__item" data-category="hombre">
+          <article class="gallery__item" data-category="camisetas">
             <div class="gallery__image gallery__image--b"></div>
             <div class="gallery__meta">
               <p class="gallery__name">Camiseta "Neon Code"</p>
               <p class="gallery__price">$89.000 COP</p>
-              <p class="gallery__category">Hombre</p>
+              <p class="gallery__category">Camisetas</p>
             </div>
           </article>
 
-          <article class="gallery__item" data-category="mujer">
-            <div class="gallery__image gallery__image--c"></div>
-            <div class="gallery__meta">
-              <p class="gallery__name">Hoodie "Digital Wave"</p>
-              <p class="gallery__price">$169.000 COP</p>
-              <p class="gallery__category">Mujer</p>
-            </div>
-          </article>
-
-          <article class="gallery__item" data-category="mujer">
-            <div class="gallery__image gallery__image--d"></div>
-            <div class="gallery__meta">
-              <p class="gallery__name">Top "Glitch Effect"</p>
-              <p class="gallery__price">$79.000 COP</p>
-              <p class="gallery__category">Mujer</p>
-            </div>
-          </article>
-
-          <article class="gallery__item" data-category="hombre">
+          <article class="gallery__item" data-category="camisetas">
             <div class="gallery__image gallery__image--a"></div>
             <div class="gallery__meta">
               <p class="gallery__name">Chaqueta "Cyber Punk"</p>
               <p class="gallery__price">$249.000 COP</p>
-              <p class="gallery__category">Hombre</p>
-            </div>
-          </article>
-
-          <article class="gallery__item" data-category="mujer">
-            <div class="gallery__image gallery__image--b"></div>
-            <div class="gallery__meta">
-              <p class="gallery__name">Vestido "Matrix Flow"</p>
-              <p class="gallery__price">$199.000 COP</p>
-              <p class="gallery__category">Mujer</p>
+              <p class="gallery__category">Camisetas</p>
             </div>
           </article>
         </div>
@@ -130,15 +103,60 @@
     // Obtener parámetro cat de URL
     const urlParams = new URLSearchParams(window.location.search);
     const category = urlParams.get('cat') || 'todos';
-    
+
     // Actualizar título
     const titleEl = document.getElementById('ropaTitle');
-    if (category === 'hombre') {
-      titleEl.textContent = 'Ropa — Hombre';
-    } else if (category === 'mujer') {
-      titleEl.textContent = 'Ropa — Mujer';
+    if (category === 'camisetas') {
+      titleEl.textContent = 'Ropa — Camisetas';
+    } else if (category === 'faldas') {
+      titleEl.textContent = 'Ropa — Faldas';
     } else {
       titleEl.textContent = 'Ropa — Todo';
+    }
+
+    // Función para cargar faldas desde el script
+    async function loadFaldas() {
+      try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbxi7qSdxN6ZQdzVYTzAHlfGwkjqmll0ldqGspbxFb8T4GstfDK0MasUNflQUymsbOri/exec');
+        const data = await response.json();
+        const gallery = document.getElementById('ropaGallery');
+        let items = data;
+        if (!Array.isArray(data)) {
+          items = data.data || data.items || data.faldas || [];
+        }
+        items.forEach(item => {
+          const article = document.createElement('article');
+          article.className = 'gallery__item';
+          article.setAttribute('data-category', 'faldas');
+          article.innerHTML = `
+            <div class="gallery__image" style="background-image: url(${item.IMAGE});"></div>
+            <div class="gallery__meta">
+              <p class="gallery__name">${item.NAME || item.name}</p>
+              <p class="gallery__price">${item.PRICE || item.price}</p>
+              <p class="gallery__category">Faldas</p>
+            </div>
+          `;
+          article.style.cursor = 'pointer';
+          article.addEventListener('click', () => {
+            const name = item.NAME || item.name;
+            const price = item.PRICE || item.price;
+            const category = 'faldas';
+            const image = item.IMAGE;
+            const desc = item.DESCRIPTION || '';
+            const prod = { name, price, category, image, desc };
+            localStorage.setItem('cyberduck:selectedProduct', JSON.stringify(prod));
+            window.location.href = './product.html';
+          });
+          gallery.appendChild(article);
+        });
+      } catch (error) {
+        console.error('Error loading faldas:', error);
+      }
+    }
+
+    // Cargar faldas si es necesario
+    if (category === 'todos' || category === 'faldas') {
+      loadFaldas();
     }
 
     // Filtrar productos
@@ -161,7 +179,7 @@
       } else {
         tab.classList.remove('is-active');
       }
-      
+
       // Click handler para cambiar filtro
       tab.addEventListener('click', () => {
         window.location.href = `./ropa.html?cat=${tabCat}`;
