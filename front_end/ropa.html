@@ -68,32 +68,7 @@
 
         <div class="gallery" id="ropaGallery">
           <!-- Productos Todos/Hombre -->
-          <article class="gallery__item" data-category="camisetas">
-            <div class="gallery__image gallery__image--a"></div>
-            <div class="gallery__meta">
-              <p class="gallery__name">Sweater "Cyberduck Grid"</p>
-              <p class="gallery__price">$149.000 COP</p>
-              <p class="gallery__category">Camisetas</p>
-            </div>
-          </article>
-
-          <article class="gallery__item" data-category="camisetas">
-            <div class="gallery__image gallery__image--b"></div>
-            <div class="gallery__meta">
-              <p class="gallery__name">Camiseta "Neon Code"</p>
-              <p class="gallery__price">$89.000 COP</p>
-              <p class="gallery__category">Camisetas</p>
-            </div>
-          </article>
-
-          <article class="gallery__item" data-category="camisetas">
-            <div class="gallery__image gallery__image--a"></div>
-            <div class="gallery__meta">
-              <p class="gallery__name">Chaqueta "Cyber Punk"</p>
-              <p class="gallery__price">$249.000 COP</p>
-              <p class="gallery__category">Camisetas</p>
-            </div>
-          </article>
+       
         </div>
       </section>
     </div>
@@ -112,6 +87,46 @@
       titleEl.textContent = 'Ropa — Faldas';
     } else {
       titleEl.textContent = 'Ropa — Todo';
+    }
+
+    // Función para cargar camisetas desde el script
+    async function loadCamisetas() {
+      try {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbzlEH33cVRdLmR3cI17bZi7k81OyucZnhqQ7WAPhJcigixl12fpYH03xMfvL77gGl9x/exec');
+        const data = await response.json();
+        const gallery = document.getElementById('ropaGallery');
+        let items = data;
+        if (!Array.isArray(data)) {
+          items = data.data || data.items || data.camisetas || [];
+        }
+        items.forEach(item => {
+          const article = document.createElement('article');
+          article.className = 'gallery__item';
+          article.setAttribute('data-category', 'camisetas');
+          article.innerHTML = `
+            <div class="gallery__image" style="background-image: url(${item.IMAGE});"></div>
+            <div class="gallery__meta">
+              <p class="gallery__name">${item.NAME || item.name}</p>
+              <p class="gallery__price">${item.PRICE || item.price}</p>
+              <p class="gallery__category">Camisetas</p>
+            </div>
+          `;
+          article.style.cursor = 'pointer';
+          article.addEventListener('click', () => {
+            const name = item.NAME || item.name;
+            const price = item.PRICE || item.price;
+            const category = 'camisetas';
+            const image = item.IMAGE;
+            const desc = item.DESCRIPTION || '';
+            const prod = { name, price, category, image, desc };
+            localStorage.setItem('cyberduck:selectedProduct', JSON.stringify(prod));
+            window.location.href = './product.html';
+          });
+          gallery.appendChild(article);
+        });
+      } catch (error) {
+        console.error('Error loading camisetas:', error);
+      }
     }
 
     // Función para cargar faldas desde el script
@@ -152,6 +167,11 @@
       } catch (error) {
         console.error('Error loading faldas:', error);
       }
+    }
+
+    // Cargar camisetas si es necesario
+    if (category === 'todos' || category === 'camisetas') {
+      loadCamisetas();
     }
 
     // Cargar faldas si es necesario
