@@ -180,8 +180,8 @@
         itemEl.appendChild(thumb); itemEl.appendChild(meta); itemEl.appendChild(rm);
         itemsWrap.appendChild(itemEl);
 
-        // Try to parse numeric price for total (best-effort)
-        const num = (it.price || '').replace(/[^0-9.,]/g,'').replace(',', '.');
+        // Try to parse numeric price for total (best-effort) - handle Spanish format
+        const num = (it.price || '').toString().replace(/\./g, '').replace(',', '.');
         const val = parseFloat(num) || 0;
         total += val;
       });
