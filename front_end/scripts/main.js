@@ -223,3 +223,21 @@
   });
 })();
 
+/* Loading indicator for nuevo section */
+(function(){
+  const loadingIndicator = document.getElementById('loading-indicator');
+  const gallery = document.querySelector('.gallery');
+
+  if (loadingIndicator && gallery) {
+    // Show loading indicator initially
+    loadingIndicator.style.display = 'flex';
+    gallery.style.display = 'none';
+
+    // Simulate loading delay
+    setTimeout(() => {
+      loadingIndicator.style.display = 'none';
+      gallery.style.display = 'grid';
+    }, 2000); // 2 seconds delay
+  }
+})();
+

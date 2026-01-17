@@ -67,14 +67,34 @@
         </div>
 
         <div class="gallery" id="ropaGallery">
+          <!-- Loading indicator -->
+          <div id="loadingIndicator" class="loading-indicator">
+            <div class="loading-spinner"></div>
+            <p>Cargando productos...</p>
+          </div>
           <!-- Productos Todos/Hombre -->
-       
+
         </div>
       </section>
     </div>
   </main>
 
   <script>
+    // Funciones para mostrar/ocultar loading
+    function showLoading() {
+      const indicator = document.getElementById('loadingIndicator');
+      if (indicator) {
+        indicator.style.display = 'flex';
+      }
+    }
+
+    function hideLoading() {
+      const indicator = document.getElementById('loadingIndicator');
+      if (indicator) {
+        indicator.style.display = 'none';
+      }
+    }
+
     // Obtener parámetro cat de URL
     const urlParams = new URLSearchParams(window.location.search);
     const category = urlParams.get('cat') || 'todos';
@@ -131,6 +151,7 @@
 
     // Función para cargar faldas desde el script
     async function loadFaldas() {
+      showLoading();
       try {
         const response = await fetch('https://script.google.com/macros/s/AKfycbxi7qSdxN6ZQdzVYTzAHlfGwkjqmll0ldqGspbxFb8T4GstfDK0MasUNflQUymsbOri/exec');
         const data = await response.json();
@@ -166,17 +187,102 @@
         });
       } catch (error) {
         console.error('Error loading faldas:', error);
+      } finally {
+        hideLoading();
       }
     }
 
+    // Función para mezclar array
+    function shuffleArray(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    // Cargar productos surtidos para "todos"
+    async function loadTodos() {
+      showLoading();
+      const gallery = document.getElementById('ropaGallery');
+      const allItems = [];
+
+      try {
+        // Cargar camisetas
+        const camisetasResponse = await fetch('https://script.google.com/macros/s/AKfycbzlEH33cVRdLmR3cI17bZi7k81OyucZnhqQ7WAPhJcigixl12fpYH03xMfvL77gGl9x/exec');
+        const camisetasData = await camisetasResponse.json();
+        let camisetasItems = camisetasData;
+        if (!Array.isArray(camisetasData)) {
+          camisetasItems = camisetasData.data || camisetasData.items || camisetasData.camisetas || [];
+        }
+        camisetasItems.forEach(item => {
+          allItems.push({ ...item, category: 'camisetas' });
+        });
+      } catch (error) {
+        console.error('Error loading camisetas:', error);
+      }
+
+      try {
+        // Cargar faldas
+        const faldasResponse = await fetch('https://script.google.com/macros/s/AKfycbxi7qSdxN6ZQdzVYTzAHlfGwkjqmll0ldqGspbxFb8T4GstfDK0MasUNflQUymsbOri/exec');
+        const faldasData = await faldasResponse.json();
+        let faldasItems = faldasData;
+        if (!Array.isArray(faldasData)) {
+          faldasItems = faldasData.data || faldasData.items || faldasData.faldas || [];
+        }
+        faldasItems.forEach(item => {
+          allItems.push({ ...item, category: 'faldas' });
+        });
+      } catch (error) {
+        console.error('Error loading faldas:', error);
+      }
+
+      // Mezclar los productos
+      const shuffledItems = shuffleArray(allItems);
+
+      // Renderizar productos mezclados
+      shuffledItems.forEach(item => {
+        const article = document.createElement('article');
+        article.className = 'gallery__item';
+        article.setAttribute('data-category', item.category);
+        article.innerHTML = `
+          <div class="gallery__image" style="background-image: url(${item.IMAGE});"></div>
+          <div class="gallery__meta">
+            <p class="gallery__name">${item.NAME || item.name}</p>
+            <p class="gallery__price">${item.PRICE || item.price}</p>
+            <p class="gallery__category">${item.category === 'camisetas' ? 'Camisetas' : 'Faldas'}</p>
+          </div>
+        `;
+        article.style.cursor = 'pointer';
+        article.addEventListener('click', () => {
+          const name = item.NAME || item.name;
+          const price = item.PRICE || item.price;
+          const category = item.category;
+          const image = item.IMAGE;
+          const desc = item.DESCRIPTION || '';
+          const prod = { name, price, category, image, desc };
+          localStorage.setItem('cyberduck:selectedProduct', JSON.stringify(prod));
+          window.location.href = './product.html';
+        });
+        gallery.appendChild(article);
+      });
+
+      hideLoading();
+    }
+
     // Cargar camisetas si es necesario
-    if (category === 'todos' || category === 'camisetas') {
+    if (category === 'camisetas') {
       loadCamisetas();
     }
 
     // Cargar faldas si es necesario
-    if (category === 'todos' || category === 'faldas') {
+    if (category === 'faldas') {
       loadFaldas();
+    }
+
+    // Cargar productos surtidos para "todos"
+    if (category === 'todos') {
+      loadTodos();
     }
 
     // Filtrar productos
