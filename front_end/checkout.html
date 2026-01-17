@@ -41,36 +41,38 @@
         </div>
 
         <div class="checkout-layout">
-          <form id="checkoutForm" style="background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)); padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,.04);">
+          <form id="checkoutForm" action="https://script.google.com/macros/s/AKfycbyxKcq98h97BpRGh1juUksLCVMoF-zz-Rbw09978nMRDxx9Rw2KKNLZ6M16rWwxQA1E/exec" method="POST" style="background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)); padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,.04);">
             <h2 style="margin:0 0 12px;">Datos del comprador</h2>
 
             <label style="display:block; margin-bottom:10px;">
               <div style="font-weight:800; font-size:12px; margin-bottom:6px;">Nombre completo</div>
-              <input id="fullname" name="fullname" type="text" required style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,.06); background:transparent; color:var(--text);" placeholder="Juan Pérez" />
+              <input id="fullname" name="nombre" type="text" required style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,.06); background:transparent; color:var(--text);" placeholder="Juan Pérez" />
             </label>
 
             <label style="display:block; margin-bottom:10px;">
               <div style="font-weight:800; font-size:12px; margin-bottom:6px;">Correo</div>
-              <input id="email" name="email" type="email" required style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,.06); background:transparent; color:var(--text);" placeholder="juan@correo.com" />
+              <input id="email" name="correo" type="email" required style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,.06); background:transparent; color:var(--text);" placeholder="juan@correo.com" />
             </label>
 
             <label style="display:block; margin-bottom:10px;">
               <div style="font-weight:800; font-size:12px; margin-bottom:6px;">Celular</div>
-              <input id="phone" name="phone" type="tel" required style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,.06); background:transparent; color:var(--text);" placeholder="+57 3xx xxx xxxx" />
+              <input id="phone" name="celular" type="tel" required style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,.06); background:transparent; color:var(--text);" placeholder="+57 3xx xxx xxxx" />
             </label>
 
             <label style="display:block; margin-bottom:10px;">
               <div style="font-weight:800; font-size:12px; margin-bottom:6px;">Código de descuento (opcional)</div>
-              <input id="discount" name="discount" type="text" style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,.06); background:transparent; color:var(--text);" placeholder="PROMO2025" />
+              <input id="discount" name="codigoDescuento" type="text" style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,.06); background:transparent; color:var(--text);" placeholder="PROMO2025" />
             </label>
 
             <label style="display:block; margin-bottom:16px;">
               <div style="font-weight:800; font-size:12px; margin-bottom:6px;">Medio de pago</div>
-              <select id="paymentMethod" name="paymentMethod" required style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,.06); background:transparent; color:var(--text);">
+              <select id="paymentMethod" name="medioPago" required style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,.06); background:transparent; color:var(--text);">
                 <option value="nequi">Nequi</option>
                 <option value="tarjeta">Tarjeta</option>
               </select>
             </label>
+
+            <input type="hidden" id="totalInput" name="total" value="" />
 
             <div style="display:flex; gap:10px; align-items:center;">
               <button id="checkoutSubmit" class="btn btn--primary" type="submit">Enviar pedido →</button>
@@ -114,19 +116,24 @@
       });
       totalEl.textContent = 'Total: ' + (total?formatPrice(total):'—');
 
+      // Set total in hidden input
+      const totalInput = document.getElementById('totalInput');
+      if(totalInput) totalInput.value = total.toString();
+
       // handle submit
       const form = document.getElementById('checkoutForm');
       form.addEventListener('submit', function(e){
-        e.preventDefault();
         const fullname = document.getElementById('fullname').value.trim();
         const email = document.getElementById('email').value.trim();
         const phone = document.getElementById('phone').value.trim();
-        if(!fullname||!email||!phone){ alert('Por favor completa los datos obligatorios.'); return; }
-        // fake submit: clear cart and show confirmation
-        localStorage.removeItem('cyberduck:cart');
-        try{ window.dispatchEvent(new Event('cyberduck:cart-updated')); }catch(e){}
-        alert('Pedido recibido. Gracias, ' + fullname + '.');
-        window.location.href = './index.html';
+        if(!fullname||!email||!phone){
+          e.preventDefault();
+          alert('Por favor completa los datos obligatorios.');
+          return;
+        }
+        // The form will submit directly to Google Apps Script
+        // Clear cart after successful submission (this would need to be handled differently)
+        // For now, we'll assume the script redirects or handles success
       });
     })();
   </script>
