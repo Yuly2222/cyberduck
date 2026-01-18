@@ -157,7 +157,8 @@
           Object.keys(row).forEach(k => { if(!k) return; normalized[k.trim().toLowerCase()] = row[k]; });
 
           const name = normalized['name'] || normalized['nombre'] || normalized['title'] || 'Producto';
-          const price = normalized['price'] || normalized['precio'] || '';
+          const price = (normalized['price'] || normalized['precio'] || '').toString().replace(/\./g, '').replace(',', '.');
+          const formattedPrice = parseFloat(price) ? parseFloat(price).toLocaleString('es-CO') : '';
           const category = (normalized['category'] || normalized['categoria'] || '').toString().toLowerCase();
           const image = normalized['image'] || normalized['imagen'] || normalized['img'] || '';
           const desc = normalized['desc'] || normalized['descripcion'] || normalized['description'] || '';
@@ -170,7 +171,7 @@
             <div class="gallery__image" style="background-image: url('${image}');"></div>
             <div class="gallery__meta">
               <p class="gallery__name">${name}</p>
-              <p class="gallery__price">${price}</p>
+              <p class="gallery__price">${formattedPrice}</p>
               <p class="gallery__category">${category ? category.charAt(0).toUpperCase() + category.slice(1) : ''}</p>
               <p class="gallery__desc" style="display:none">${desc}</p>
             </div>

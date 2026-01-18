@@ -93,7 +93,7 @@
   <script>
     (function(){
       function readCart(){ try{ const raw = localStorage.getItem('cyberduck:cart'); return raw ? JSON.parse(raw) : []; }catch(e){ return []; } }
-      function formatPrice(p){ return p; }
+      function formatPrice(p){ return p.toLocaleString('es-CO'); }
 
       const itemsWrap = document.getElementById('checkoutItems');
       const totalEl = document.getElementById('checkoutTotal');

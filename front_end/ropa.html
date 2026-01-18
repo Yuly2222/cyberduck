@@ -127,7 +127,7 @@
             <div class="gallery__image" style="background-image: url(${item.IMAGE});"></div>
             <div class="gallery__meta">
               <p class="gallery__name">${item.NAME || item.name}</p>
-              <p class="gallery__price">${item.PRICE || item.price}</p>
+              <p class="gallery__price">${(parseFloat((item.PRICE || item.price).toString().replace(/\./g, '').replace(',', '.')) || 0).toLocaleString('es-CO')}</p>
               <p class="gallery__category">Camisetas</p>
             </div>
           `;
@@ -249,7 +249,7 @@
           <div class="gallery__image" style="background-image: url(${item.IMAGE});"></div>
           <div class="gallery__meta">
             <p class="gallery__name">${item.NAME || item.name}</p>
-            <p class="gallery__price">${item.PRICE || item.price}</p>
+            <p class="gallery__price">${(parseFloat((item.PRICE || item.price).toString().replace(/\./g, '').replace(',', '.')) || 0).toLocaleString('es-CO')}</p>
             <p class="gallery__category">${item.category === 'camisetas' ? 'Camisetas' : 'Faldas'}</p>
           </div>
         `;

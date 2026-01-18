@@ -117,7 +117,7 @@
     function writeCart(cart){ try{ localStorage.setItem(CART_KEY, JSON.stringify(cart)); }catch(e){}
     }
 
-    function formatPrice(p){ return p; }
+    function formatPrice(p){ return p.toLocaleString('es-CO'); }
 
     function renderCart(){
       const btn = document.getElementById('cartButton');
@@ -162,7 +162,7 @@
 
         const meta = document.createElement('div'); meta.className = 'cart-item__meta';
         const name = document.createElement('div'); name.className = 'cart-item__name'; name.textContent = it.name || 'Producto';
-        const price = document.createElement('div'); price.className = 'cart-item__price'; price.textContent = it.price || '';
+        const price = document.createElement('div'); price.className = 'cart-item__price'; price.textContent = (it.price ? parseFloat(it.price.toString().replace(/\./g, '').replace(',', '.')) : 0).toLocaleString('es-CO') || '';
 
         meta.appendChild(name); meta.appendChild(price);
 
