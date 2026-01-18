@@ -62,6 +62,11 @@
           <a class="viewall" href="./index.html">volver al inicio</a>
         </div>
 
+        <div class="loading-indicator" id="loading-indicator">
+          <div class="loading-spinner"></div>
+          <p>Cargando productos...</p>
+        </div>
+
         <div class="filter-tabs" id="filterTabs">
           <button class="filter-tab" data-cat="todos">Todo</button>
           <button class="filter-tab" data-cat="aretes">Aretes</button>
@@ -80,6 +85,21 @@
   </main>
 
   <script>
+    // Funciones para mostrar/ocultar loading
+    function showLoading() {
+      const indicator = document.getElementById('loading-indicator');
+      if (indicator) {
+        indicator.style.display = 'flex';
+      }
+    }
+
+    function hideLoading() {
+      const indicator = document.getElementById('loading-indicator');
+      if (indicator) {
+        indicator.style.display = 'none';
+      }
+    }
+
     // Leer parámetro cat y filtrar items en accesorios
     (function(){
       const EARRINGS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4zEM2NKmejtMMuiBLDdBEMIyIgtwfr1yHoPXxNBz7_mypqhTTX6tu85DFLGD4Cn_b/exec';
@@ -160,55 +180,72 @@
         });
 
         setupProductClickHandlers('#accesoriosGallery');
+        hideLoading();
       }
 
       // If category is 'aretes' or 'otros', fetch the corresponding Google Sheets script and render
       if(category === 'aretes'){
+        showLoading();
         fetch(EARRINGS_SCRIPT_URL)
           .then(r => r.json())
           .then(json => {
             if(json && Array.isArray(json.data) && json.data.length){
               renderItemsFromSheet(json.data);
+            } else {
+              hideLoading();
             }
           })
-          .catch(err => { console.warn('No se pudo obtener datos de Aretes:', err); });
+          .catch(err => { console.warn('No se pudo obtener datos de Aretes:', err); hideLoading(); });
       } else if (category === 'collares'){
+        showLoading();
         fetch(COLLARES_SCRIPT_URL)
           .then(r => r.json())
           .then(json => {
             if(json && Array.isArray(json.data) && json.data.length){
               renderItemsFromSheet(json.data);
+            } else {
+              hideLoading();
             }
           })
-          .catch(err => { console.warn('No se pudo obtener datos de Manillas:', err); });
+          .catch(err => { console.warn('No se pudo obtener datos de Collares:', err); hideLoading(); });
       } else if (category === 'gargantillas'){
+        showLoading();
         fetch(GARGANTILLAS_SCRIPT_URL)
           .then(r => r.json())
           .then(json => {
             if(json && Array.isArray(json.data) && json.data.length){
               renderItemsFromSheet(json.data);
+            } else {
+              hideLoading();
             }
           })
-          .catch(err => { console.warn('No se pudo obtener datos de Gargantillas:', err); });
+          .catch(err => { console.warn('No se pudo obtener datos de Gargantillas:', err); hideLoading(); });
       } else if (category === 'manillas'){
+        showLoading();
         fetch(MANILLAS_SCRIPT_URL)
           .then(r => r.json())
           .then(json => {
             if(json && Array.isArray(json.data) && json.data.length){
               renderItemsFromSheet(json.data);
+            } else {
+              hideLoading();
             }
           })
-          .catch(err => { console.warn('No se pudo obtener datos de Manillas:', err); });
+          .catch(err => { console.warn('No se pudo obtener datos de Manillas:', err); hideLoading(); });
       } else if (category === 'otros'){
+        showLoading();
         fetch(OTHERS_SCRIPT_URL)
           .then(r => r.json())
           .then(json => {
             if(json && Array.isArray(json.data) && json.data.length){
               renderItemsFromSheet(json.data);
+            } else {
+              hideLoading();
             }
           })
-          .catch(err => { console.warn('No se pudo obtener datos de Otros:', err); });
+          .catch(err => { console.warn('No se pudo obtener datos de Otros:', err); hideLoading(); });
       } else if (category === 'todos'){
+        showLoading();
         // Fetch all categories and combine them
         const allScripts = [
           fetch(EARRINGS_SCRIPT_URL).then(r => r.json()),
@@ -235,9 +272,11 @@
               }
               shuffleArray(allItems);
               renderItemsFromSheet(allItems);
+            } else {
+              hideLoading();
             }
           })
-          .catch(err => { console.warn('Error al obtener datos de accesorios:', err); });
+          .catch(err => { console.warn('Error al obtener datos de accesorios:', err); hideLoading(); });
       } else {
         // Apply simple client-side filter for static items
         const items = document.querySelectorAll('#accesoriosGallery .gallery__item');

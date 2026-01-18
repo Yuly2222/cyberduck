@@ -60,6 +60,11 @@
           <a class="viewall" href="./index.html">volver al inicio</a>
         </div>
 
+        <div class="loading-indicator" id="loading-indicator">
+          <div class="loading-spinner"></div>
+          <p>Cargando productos...</p>
+        </div>
+
         <div class="filter-tabs" id="filterTabs">
           <button class="filter-tab" data-cat="todos">Todo</button>
           <button class="filter-tab" data-cat="camisetas">Camisetas</button>
@@ -67,11 +72,6 @@
         </div>
 
         <div class="gallery" id="ropaGallery">
-          <!-- Loading indicator -->
-          <div id="loadingIndicator" class="loading-indicator">
-            <div class="loading-spinner"></div>
-            <p>Cargando productos...</p>
-          </div>
           <!-- Productos Todos/Hombre -->
 
         </div>
@@ -82,14 +82,14 @@
   <script>
     // Funciones para mostrar/ocultar loading
     function showLoading() {
-      const indicator = document.getElementById('loadingIndicator');
+      const indicator = document.getElementById('loading-indicator');
       if (indicator) {
         indicator.style.display = 'flex';
       }
     }
 
     function hideLoading() {
-      const indicator = document.getElementById('loadingIndicator');
+      const indicator = document.getElementById('loading-indicator');
       if (indicator) {
         indicator.style.display = 'none';
       }

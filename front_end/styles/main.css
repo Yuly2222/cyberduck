@@ -924,6 +924,12 @@ body::after{
   box-shadow: var(--glowA);
   background: rgba(6,7,10,.35);
 }
+.bigcard__image{
+  width: 160px;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.8;
+}
 .bigcard__content{
   padding: 22px;
   display: flex;
