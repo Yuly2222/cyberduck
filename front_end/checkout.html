@@ -40,7 +40,7 @@
         </div>
 
         <div class="checkout-layout">
-          <form id="checkoutForm" action="https://script.google.com/macros/s/AKfycbyxKcq98h97BpRGh1juUksLCVMoF-zz-Rbw09978nMRDxx9Rw2KKNLZ6M16rWwxQA1E/exec" method="POST" style="background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)); padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,.04);">
+          <form id="checkoutForm" action="https://script.google.com/macros/s/AKfycbya7tgfQg8STwxwbBcAOlm8sWJJsr5jn-ukAMkx-YUA9kIjf6QgfbMZB1VTNOhXlUHe/exec" method="POST" style="background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01)); padding:18px; border-radius:12px; border:1px solid rgba(255,255,255,.04);">
             <h2 style="margin:0 0 12px;">Datos del comprador</h2>
 
             <label style="display:block; margin-bottom:10px;">
@@ -72,6 +72,7 @@
             </label>
 
             <input type="hidden" id="totalInput" name="total" value="" />
+            <input type="hidden" id="cartInput" name="productos" value="" />
 
             <div style="display:flex; gap:10px; align-items:center;">
               <button id="checkoutSubmit" class="btn btn--primary" type="submit">Enviar pedido →</button>
@@ -118,6 +119,10 @@
       // Set total in hidden input
       const totalInput = document.getElementById('totalInput');
       if(totalInput) totalInput.value = total.toString();
+
+      // Set cart products in hidden input
+      const cartInput = document.getElementById('cartInput');
+      if(cartInput) cartInput.value = JSON.stringify(cart);
 
       // handle submit
       const form = document.getElementById('checkoutForm');
