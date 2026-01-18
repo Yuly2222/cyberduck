@@ -241,3 +241,67 @@
   }
 })();
 
+/* Gift card modal */
+(function(){
+  const modal = document.getElementById('giftModal');
+  const openBtn = document.getElementById('giftBuyBtn');
+  const closeBtn = document.getElementById('giftModalClose');
+  const cancelBtn = document.getElementById('giftModalCancel');
+  const acceptBtn = document.getElementById('giftModalAccept');
+  const valueInput = document.getElementById('giftValue');
+
+  if (!modal || !openBtn || !closeBtn || !cancelBtn || !acceptBtn || !valueInput) return;
+
+  function openModal() {
+    modal.hidden = false;
+    valueInput.focus();
+  }
+
+  function closeModal() {
+    modal.hidden = true;
+    valueInput.value = '';
+  }
+
+  function addToCart() {
+    const value = parseInt(valueInput.value);
+    if (!value || value < 10000) {
+      alert('Por favor ingresa un valor válido (mínimo $10.000 COP)');
+      return;
+    }
+
+    const giftItem = {
+      name: `Tarjeta de Regalo - $${value.toLocaleString()} COP`,
+      price: `$${value.toLocaleString()} COP`,
+      image: 'url(./imgs/gift.png)',
+      desc: 'Tarjeta de regalo con pequeño regalo sorpresa incluido.'
+    };
+
+    // Add to cart
+    const CART_KEY = 'cyberduck:cart';
+    const cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+    cart.push(giftItem);
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+
+    // Update cart UI
+    window.dispatchEvent(new Event('cyberduck:cart-updated'));
+
+    closeModal();
+    alert('Tarjeta de regalo añadida al carrito!');
+  }
+
+  openBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+  cancelBtn.addEventListener('click', closeModal);
+  acceptBtn.addEventListener('click', addToCart);
+
+  // Close on backdrop click
+  modal.addEventListener('click', function(e) {
+    if (e.target === modal) closeModal();
+  });
+
+  // Close on escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && !modal.hidden) closeModal();
+  });
+})();
+

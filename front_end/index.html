@@ -215,7 +215,7 @@
             <div class="bigcard__content">
               <h3 class="bigcard__title">TARJETA DE REGALO</h3>
               <p class="bigcard__text">Regala Cyberduck a tu combo. Rápido, fácil y sin equivocarte de talla.</p>
-              <a class="btn btn--primary" href="#">comprar ahora</a>
+              <button class="btn btn--primary" id="giftBuyBtn">comprar ahora</button>
             </div>
           </article>
 
@@ -235,6 +235,28 @@
 
     </div>
   </main>
+
+  <!-- MODAL TARJETA DE REGALO -->
+  <div id="giftModal" class="modal" hidden>
+    <div class="modal__backdrop"></div>
+    <div class="modal__content">
+      <div class="modal__head">
+        <h3 class="modal__title">Tarjeta de Regalo</h3>
+        <button class="modal__close" id="giftModalClose" type="button" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="modal__body">
+        <p>Indica el valor de la tarjeta de regalo (incluye un pequeño regalo sorpresa).</p>
+        <div class="form-group">
+          <label for="giftValue">Valor (COP):</label>
+          <input type="number" id="giftValue" min="10000" placeholder="Ej: 50000" class="input">
+        </div>
+      </div>
+      <div class="modal__foot">
+        <button class="btn" id="giftModalCancel">Cancelar</button>
+        <button class="btn btn--primary" id="giftModalAccept">Aceptar</button>
+      </div>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <footer class="footer">
