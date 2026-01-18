@@ -79,7 +79,7 @@ body::after{
 .container {
   max-width: var(--max);
   margin: 0 auto;
-  padding: 0 18px;
+  padding: 0 28px;
 }
 
 /* ---------- Header ---------- */
@@ -119,8 +119,8 @@ body::after{
   min-width: 0;
 }
 .brand__img{
-  width: 64px;
-  height: 64px;
+  width: 80px;
+  height: 80px;
   object-fit: contain;
   filter: drop-shadow(0 0 20px rgba(0,229,255,.32));
   flex-shrink: 0;
@@ -633,7 +633,7 @@ body::after{
 /* Controles del slider */
 .slider__controls{
   position: absolute;
-  inset: auto 18px 18px 18px;
+  inset: auto 18px 8px 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -925,7 +925,7 @@ body::after{
   background: rgba(6,7,10,.35);
 }
 .bigcard__image{
-  width: 160px;
+  width: 250px;
   height: auto;
   object-fit: contain;
   opacity: 0.8;
