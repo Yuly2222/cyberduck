@@ -270,8 +270,8 @@
     }
 
     const giftItem = {
-      name: `Tarjeta de Regalo - $${value.toLocaleString()} COP`,
-      price: `$${value.toLocaleString()} COP`,
+      name: `Tarjeta de Regalo - $${value.toLocaleString('es-CO')} COP`,
+      price: value.toLocaleString('es-CO'),
       image: 'url(./imgs/gift.png)',
       desc: 'Tarjeta de regalo con pequeño regalo sorpresa incluido.'
     };
