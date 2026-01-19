@@ -102,6 +102,22 @@
         products.forEach(product => {
           const item = document.createElement('article');
           item.className = 'gallery__item';
+          item.style.cursor = 'pointer'; // Make it look clickable
+
+          // Add click event to navigate to product.html
+          item.addEventListener('click', () => {
+            // Store product data in localStorage
+            const priceValue = parseFloat(product.PRICE);
+            const productData = {
+              name: product.NAME || 'Producto',
+              price: !isNaN(priceValue) ? priceValue : null,
+              image: product.IMAGE || '',
+              desc: product.DESC || 'Descripción breve del producto.'
+            };
+            localStorage.setItem('cyberduck:selectedProduct', JSON.stringify(productData));
+            // Navigate to product.html
+            window.location.href = './product.html';
+          });
 
           const imageDiv = document.createElement('div');
           imageDiv.className = 'gallery__image';

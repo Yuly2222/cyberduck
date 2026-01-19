@@ -93,7 +93,7 @@
         const raw = localStorage.getItem('cyberduck:selectedProduct');
         const data = raw ? JSON.parse(raw) : null;
         const title = data && data.name ? data.name : 'Producto';
-        const price = data && data.price ? data.price : '—';
+        const price = data && data.price ? (typeof data.price === 'number' ? `$${data.price.toLocaleString('es-CO')} COP` : data.price) : '—';
         let desc = data && data.desc ? data.desc : 'Descripción breve del producto.';
         const image = data && data.image ? data.image : '';
 
