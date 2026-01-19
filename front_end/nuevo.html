@@ -63,41 +63,77 @@
           <p>Cargando productos...</p>
         </div>
         <div class="gallery">
-          <article class="gallery__item">
-            <div class="gallery__image gallery__image--a"></div>
-            <div class="gallery__meta">
-              <p class="gallery__name">Sweater “Cyberduck Grid”</p>
-              <p class="gallery__price">$149.000 COP</p>
-            </div>
-          </article>
-
-          <article class="gallery__item">
-            <div class="gallery__image gallery__image--b"></div>
-            <div class="gallery__meta">
-              <p class="gallery__name">Box set “Neon Drop”</p>
-              <p class="gallery__price">$129.000 COP</p>
-            </div>
-          </article>
-
-          <article class="gallery__item">
-            <div class="gallery__image gallery__image--c"></div>
-            <div class="gallery__meta">
-              <p class="gallery__name">Botella “Black Signal”</p>
-              <p class="gallery__price">$89.000 COP</p>
-            </div>
-          </article>
-
-          <article class="gallery__item">
-            <div class="gallery__image gallery__image--d"></div>
-            <div class="gallery__meta">
-              <p class="gallery__name">Estrella 3D “Volt Star”</p>
-              <p class="gallery__price">$99.000 COP</p>
-            </div>
           </article>
         </div>
       </section>
     </div>
   </main>
   <script src="./scripts/main.js"></script>
+  <script>
+    // Loading indicator for nuevo section
+    (function(){
+      const loadingIndicator = document.getElementById('loading-indicator');
+      const gallery = document.querySelector('.gallery');
+
+      if (loadingIndicator && gallery) {
+        // Show loading indicator initially
+        loadingIndicator.style.display = 'flex';
+        gallery.style.display = 'none';
+
+        // Fetch data from API
+        fetch('https://script.google.com/macros/s/AKfycby50Z8qW5B7xo5Ngjdc2s5pqTtTJCLZ7zVKdgoR8uEP9iubd85qWVxY5fiqHicftxhL/exec')
+          .then(response => response.json())
+          .then(data => {
+            if (data.data && Array.isArray(data.data)) {
+              populateGallery(data.data);
+            }
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+            // Fallback to static content if API fails
+            loadingIndicator.style.display = 'none';
+            gallery.style.display = 'grid';
+          });
+      }
+
+      function populateGallery(products) {
+        gallery.innerHTML = ''; // Clear existing content
+
+        products.forEach(product => {
+          const item = document.createElement('article');
+          item.className = 'gallery__item';
+
+          const imageDiv = document.createElement('div');
+          imageDiv.className = 'gallery__image';
+          if (product.IMAGE) {
+            imageDiv.style.backgroundImage = `url(${product.IMAGE})`;
+          }
+
+          const metaDiv = document.createElement('div');
+          metaDiv.className = 'gallery__meta';
+
+          const nameP = document.createElement('p');
+          nameP.className = 'gallery__name';
+          nameP.textContent = product.NAME || 'Producto';
+
+          const priceP = document.createElement('p');
+          priceP.className = 'gallery__price';
+          priceP.textContent = product.PRICE ? `$${parseFloat(product.PRICE).toLocaleString('es-CO')} COP` : 'Precio no disponible';
+
+          metaDiv.appendChild(nameP);
+          metaDiv.appendChild(priceP);
+
+          item.appendChild(imageDiv);
+          item.appendChild(metaDiv);
+
+          gallery.appendChild(item);
+        });
+
+        // Hide loading indicator and show gallery
+        loadingIndicator.style.display = 'none';
+        gallery.style.display = 'grid';
+      }
+    })();
+  </script>
 </body>
 </html>
