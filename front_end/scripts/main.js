@@ -1,7 +1,7 @@
 /* =========================
    CYBERDUCK — slider simple
 ========================= */
-(() => {
+document.addEventListener('DOMContentLoaded', () => {
   const slides = Array.from(document.querySelectorAll("[data-slide]"));
   const prevBtn = document.getElementById("prev");
   const nextBtn = document.getElementById("next");
@@ -34,7 +34,7 @@
   if (!prefersReduced) {
     setInterval(() => setActive(index + 1), 6500);
   }
-})();
+});
 
 /* Product modal behavior: open modal when clicking a product, populate fields, allow close */
 (function(){

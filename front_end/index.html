@@ -267,7 +267,11 @@
           const imageDiv = document.createElement('div');
           imageDiv.className = 'gallery__image';
           if (product.IMAGE) {
-            imageDiv.style.backgroundImage = `url(${product.IMAGE})`;
+            const img = document.createElement('img');
+            img.src = product.IMAGE;
+            img.alt = product.NAME || 'Producto';
+            img.loading = 'lazy';
+            imageDiv.appendChild(img);
           }
 
           const metaDiv = document.createElement('div');
