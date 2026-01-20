@@ -11,6 +11,7 @@
 </head>
 
 <body>
+   <script src="./scripts/main.js"></script>
   <!-- HEADER -->
   <header class="header">
     <div class="container header__inner">
@@ -70,6 +71,11 @@
           <a class="viewall" href="./personalizar.html">Personaliza tu 3D →</a>
         </div>
 
+        <div class="loading-indicator" id="loading-indicator">
+          <div class="loading-spinner"></div>
+          <p>Cargando productos...</p>
+        </div>
+
         <div class="gallery" id="impresion3dGallery">
           <!-- Gallery items are loaded dynamically from Google Sheets -->
         </div>
@@ -78,6 +84,21 @@
   </main>
 
   <script>
+    // Funciones para mostrar/ocultar loading
+    function showLoading() {
+      const indicator = document.getElementById('loading-indicator');
+      if (indicator) {
+        indicator.style.display = 'flex';
+      }
+    }
+
+    function hideLoading() {
+      const indicator = document.getElementById('loading-indicator');
+      if (indicator) {
+        indicator.style.display = 'none';
+      }
+    }
+
     // Obtener parámetro cat de URL
     const urlParams = new URLSearchParams(window.location.search);
     const category = urlParams.get('cat') || 'todos';
@@ -212,20 +233,23 @@
     }
 
     // Fetch GET desde el script para obtener los datos
+    showLoading();
     fetch(SCRIPT_URL)
       .then(r => r.json())
       .then(json => {
         if (json && Array.isArray(json.data) && json.data.length) {
           renderItemsFromSheet(json.data);
         }
+        hideLoading();
       })
       .catch(err => {
         console.warn('No se pudo obtener datos desde Google Sheets:', err);
+        hideLoading();
       });
 
     // Inicializar handlers para los productos estáticos iniciales
     setupProductClickHandlers();
   </script>
-  <script src="./scripts/main.js"></script>
+ 
 </body>
 </html>
