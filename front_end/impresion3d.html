@@ -175,7 +175,8 @@
 
         const name = normalized['name'] || normalized['nombre'] || normalized['producto'] || normalized['title'] || 'Producto';
         const price = normalized['price'] || normalized['precio'] || '';
-        const category = (normalized['category'] || normalized['categoria'] || '').toString().toLowerCase();
+        const formattedPrice = price ? `$${parseFloat(price).toLocaleString('es-CO')}` : '';
+        const category = (normalized['category'] || normalized['categoria'] || normalized['type'] || '').toString().toLowerCase();
         const image = normalized['image'] || normalized['imagen'] || normalized['img'] || '';
         const desc = normalized['desc'] || normalized['descripcion'] || normalized['description'] || '';
 
@@ -221,63 +222,6 @@
       .catch(err => {
         console.warn('No se pudo obtener datos desde Google Sheets:', err);
       });
-
-    // Formulario simple para enviar nuevos registros via POST
-    (function setupSheetForm() {
-      const container = document.createElement('div');
-      container.style.margin = '24px 0';
-      container.innerHTML = `
-        <details>
-          <summary style="cursor:pointer;">Enviar nuevo item a Google Sheets (admin)</summary>
-          <form id="sheetForm" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
-            <input name="name" placeholder="Nombre" style="flex:1;min-width:160px" required>
-            <input name="price" placeholder="Precio" style="min-width:120px">
-            <input name="category" placeholder="Categoría" style="min-width:120px">
-            <input name="image" placeholder="URL imagen" style="flex:1;min-width:160px">
-            <input name="desc" placeholder="Descripción" style="flex-basis:100%">
-            <button type="submit">Enviar</button>
-          </form>
-          <div id="sheetFormMsg" style="margin-top:8px"></div>
-        </details>
-      `;
-
-      const section = document.querySelector('.section--impresion3d .container') || document.querySelector('.container');
-      // Insertar después de la galería
-      const gallery = document.getElementById('impresion3dGallery');
-      gallery.parentNode.insertBefore(container, gallery.nextSibling);
-
-      const form = document.getElementById('sheetForm');
-      const msg = document.getElementById('sheetFormMsg');
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const fd = new FormData(form);
-        const payload = {
-          name: fd.get('name'),
-          price: fd.get('price'),
-          category: fd.get('category'),
-          image: fd.get('image'),
-          desc: fd.get('desc')
-        };
-
-        fetch(SCRIPT_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        })
-        .then(r => r.json())
-        .then(j => {
-          if (j && j.ok) {
-            msg.textContent = 'Enviado correctamente. Refresca para ver el cambio.';
-            form.reset();
-          } else {
-            msg.textContent = 'Error al enviar.';
-          }
-        })
-        .catch(err => {
-          msg.textContent = 'Error de red: ' + err.message;
-        });
-      });
-    })();
 
     // Inicializar handlers para los productos estáticos iniciales
     setupProductClickHandlers();
