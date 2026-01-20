@@ -1,4 +1,74 @@
 /* =========================
+   CYBERDUCK — OPTIMIZATIONS
+========================= */
+
+// API Cache system para reducir llamadas repetidas
+const apiCache = new Map();
+const API_CACHE_DURATION = 5 * 60 * 1000; // 5 minutos
+
+function cachedFetch(url) {
+  const now = Date.now();
+  const cached = apiCache.get(url);
+  
+  if (cached && (now - cached.timestamp) < API_CACHE_DURATION) {
+    return Promise.resolve(cached.data);
+  }
+  
+  return fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      apiCache.set(url, { data, timestamp: now });
+      return data;
+    });
+}
+
+// Lazy loading de imágenes con Intersection Observer
+const imageObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const element = entry.target;
+      const imageUrl = element.dataset.bgImage;
+      
+      if (imageUrl) {
+        // Precargar imagen
+        const img = new Image();
+        img.onload = () => {
+          element.style.backgroundImage = `url(${imageUrl})`;
+          element.classList.add('is-loaded');
+        };
+        img.onerror = () => {
+          element.classList.add('is-error');
+        };
+        img.src = imageUrl;
+        
+        observer.unobserve(element);
+      }
+    }
+  });
+}, {
+  rootMargin: '50px',
+  threshold: 0.01
+});
+
+// Función para aplicar lazy loading a elementos de galería
+function applyLazyLoading(selector = '.gallery__image') {
+  const images = document.querySelectorAll(selector);
+  images.forEach(img => {
+    if (!img.dataset.observed) {
+      imageObserver.observe(img);
+      img.dataset.observed = 'true';
+    }
+  });
+}
+
+// Exponer funciones globalmente
+window.cyberduck = {
+  cachedFetch,
+  applyLazyLoading,
+  imageObserver
+};
+
+/* =========================
    CYBERDUCK — slider simple
 ========================= */
 document.addEventListener('DOMContentLoaded', () => {

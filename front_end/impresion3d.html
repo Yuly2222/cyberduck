@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cyberduck</title>
+  
+  <!-- DNS Prefetch y Preconnect para optimizar carga de APIs -->
+  <link rel="dns-prefetch" href="https://script.google.com">
+  <link rel="preconnect" href="https://script.google.com" crossorigin>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&family=Oxanium:wght@700;800;900&display=swap" rel="stylesheet">
@@ -178,13 +183,15 @@
     // === Integración con Google Sheets ===
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyLTeWyAHgR_0i2bE50o-ufvp0gK_FnNcVaMc_S80xpSW-6MHQgTLoxm-6eeYeWz6hE/exec';
 
-    // Renderiza items recibidos desde el script
+    // Renderiza items recibidos desde el script (optimizado)
     function renderItemsFromSheet(rows) {
       const gallery = document.getElementById('impresion3dGallery');
       if (!rows || !rows.length) return;
 
       // Limpiar contenido actual
       gallery.innerHTML = '';
+
+      const fragment = document.createDocumentFragment();
 
       rows.forEach(row => {
         // Normalizar claves (trim + lowercase) para aceptar variantes como NAME, Name, name
@@ -205,18 +212,26 @@
         article.className = 'gallery__item';
         if (category) article.setAttribute('data-category', category);
 
-        article.innerHTML = `
-          <div class="gallery__image" style="background-image: url('${image}');"></div>
-          <div class="gallery__meta">
-            <p class="gallery__name">${name}</p>
-            <p class="gallery__price">${formattedPrice}</p>
-            <p class="gallery__category">${category ? category.charAt(0).toUpperCase() + category.slice(1) : ''}</p>
-            <p class="gallery__desc" style="display:none">${desc}</p>
-          </div>
+        // Usar lazy loading
+        const imageDiv = document.createElement('div');
+        imageDiv.className = 'gallery__image gallery__image--loading';
+        imageDiv.setAttribute('data-bg-image', image);
+
+        const metaDiv = document.createElement('div');
+        metaDiv.className = 'gallery__meta';
+        metaDiv.innerHTML = `
+          <p class="gallery__name">${name}</p>
+          <p class="gallery__price">${formattedPrice}</p>
+          <p class="gallery__category">${category ? category.charAt(0).toUpperCase() + category.slice(1) : ''}</p>
+          <p class="gallery__desc" style="display:none">${desc}</p>
         `;
 
-        gallery.appendChild(article);
+        article.appendChild(imageDiv);
+        article.appendChild(metaDiv);
+        fragment.appendChild(article);
       });
+
+      gallery.appendChild(fragment);
 
       // aplicar filtros según la categoría actual
       const items = document.querySelectorAll('.gallery__item');
@@ -230,12 +245,12 @@
       });
 
       setupProductClickHandlers();
+      setTimeout(() => window.cyberduck.applyLazyLoading(), 100);
     }
 
-    // Fetch GET desde el script para obtener los datos
+    // Fetch GET desde el script para obtener los datos (optimizado)
     showLoading();
-    fetch(SCRIPT_URL)
-      .then(r => r.json())
+    window.cyberduck.cachedFetch(SCRIPT_URL)
       .then(json => {
         if (json && Array.isArray(json.data) && json.data.length) {
           renderItemsFromSheet(json.data);

@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>¿Qué hay de nuevo? — Cyberduck</title>
   <meta name="description" content="Novedades de Cyberduck: ropa, accesorios y figuras 3D con estética neón." />
+  
+  <!-- DNS Prefetch y Preconnect para optimizar carga de APIs -->
+  <link rel="dns-prefetch" href="https://script.google.com">
+  <link rel="preconnect" href="https://script.google.com" crossorigin>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;600;700;800&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -70,7 +75,7 @@
     </div>
   </main>
   <script>
-    // Loading indicator for nuevo section
+    // Loading indicator for nuevo section (optimizado)
     (function(){
       const loadingIndicator = document.getElementById('loading-indicator');
       const gallery = document.querySelector('.gallery');
@@ -80,9 +85,8 @@
         loadingIndicator.style.display = 'flex';
         gallery.style.display = 'none';
 
-        // Fetch data from API
-        fetch('https://script.google.com/macros/s/AKfycby50Z8qW5B7xo5Ngjdc2s5pqTtTJCLZ7zVKdgoR8uEP9iubd85qWVxY5fiqHicftxhL/exec')
-          .then(response => response.json())
+        // Fetch data from API usando cachedFetch
+        window.cyberduck.cachedFetch('https://script.google.com/macros/s/AKfycby50Z8qW5B7xo5Ngjdc2s5pqTtTJCLZ7zVKdgoR8uEP9iubd85qWVxY5fiqHicftxhL/exec')
           .then(data => {
             if (data.data && Array.isArray(data.data)) {
               populateGallery(data.data);
@@ -98,6 +102,7 @@
 
       function populateGallery(products) {
         gallery.innerHTML = ''; // Clear existing content
+        const fragment = document.createDocumentFragment();
 
         products.forEach(product => {
           const item = document.createElement('article');
@@ -119,10 +124,11 @@
             window.location.href = './product.html';
           });
 
+          // Usar lazy loading
           const imageDiv = document.createElement('div');
-          imageDiv.className = 'gallery__image';
+          imageDiv.className = 'gallery__image gallery__image--loading';
           if (product.IMAGE) {
-            imageDiv.style.backgroundImage = `url(${product.IMAGE})`;
+            imageDiv.setAttribute('data-bg-image', product.IMAGE);
           }
 
           const metaDiv = document.createElement('div');
@@ -142,12 +148,17 @@
           item.appendChild(imageDiv);
           item.appendChild(metaDiv);
 
-          gallery.appendChild(item);
+          fragment.appendChild(item);
         });
+
+        gallery.appendChild(fragment);
 
         // Hide loading indicator and show gallery
         loadingIndicator.style.display = 'none';
         gallery.style.display = 'grid';
+        
+        // Aplicar lazy loading
+        setTimeout(() => window.cyberduck.applyLazyLoading(), 100);
       }
     })();
   </script>

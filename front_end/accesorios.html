@@ -4,6 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Accesorios — Cyberduck</title>
+  
+  <!-- DNS Prefetch y Preconnect para optimizar carga de APIs -->
+  <link rel="dns-prefetch" href="https://script.google.com">
+  <link rel="dns-prefetch" href="https://script.googleusercontent.com">
+  <link rel="preconnect" href="https://script.google.com" crossorigin>
+  <link rel="preconnect" href="https://script.googleusercontent.com" crossorigin>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&family=Oxanium:wght@700;800;900&display=swap" rel="stylesheet">
@@ -144,12 +151,14 @@
         });
       }
 
-      // Render items fetched from Google Sheets
+      // Render items fetched from Google Sheets (optimizado)
       function renderItemsFromSheet(rows){
         const gallery = document.getElementById('accesoriosGallery');
         if(!gallery) return;
         if(!rows || !rows.length) return;
         gallery.innerHTML = '';
+
+        const fragment = document.createDocumentFragment();
 
         rows.forEach(row => {
           const normalized = {};
@@ -166,28 +175,35 @@
           article.className = 'gallery__item';
           if(category) article.setAttribute('data-category', category);
 
-          article.innerHTML = `
-            <div class="gallery__image" style="background-image: url('${image}');"></div>
-            <div class="gallery__meta">
-              <p class="gallery__name">${name}</p>
-              <p class="gallery__price">${formattedPrice}</p>
-              <p class="gallery__category">${category ? category.charAt(0).toUpperCase() + category.slice(1) : ''}</p>
-              <p class="gallery__desc" style="display:none">${desc}</p>
-            </div>
+          // Usar lazy loading
+          const imageDiv = document.createElement('div');
+          imageDiv.className = 'gallery__image gallery__image--loading';
+          imageDiv.setAttribute('data-bg-image', image);
+
+          const metaDiv = document.createElement('div');
+          metaDiv.className = 'gallery__meta';
+          metaDiv.innerHTML = `
+            <p class="gallery__name">${name}</p>
+            <p class="gallery__price">${formattedPrice}</p>
+            <p class="gallery__category">${category ? category.charAt(0).toUpperCase() + category.slice(1) : ''}</p>
+            <p class="gallery__desc" style="display:none">${desc}</p>
           `;
 
-          gallery.appendChild(article);
+          article.appendChild(imageDiv);
+          article.appendChild(metaDiv);
+          fragment.appendChild(article);
         });
 
+        gallery.appendChild(fragment);
         setupProductClickHandlers('#accesoriosGallery');
+        setTimeout(() => window.cyberduck.applyLazyLoading(), 100);
         hideLoading();
       }
 
       // If category is 'aretes' or 'otros', fetch the corresponding Google Sheets script and render
       if(category === 'aretes'){
         showLoading();
-        fetch(EARRINGS_SCRIPT_URL)
-          .then(r => r.json())
+        window.cyberduck.cachedFetch(EARRINGS_SCRIPT_URL)
           .then(json => {
             if(json && Array.isArray(json.data) && json.data.length){
               renderItemsFromSheet(json.data);
@@ -198,8 +214,7 @@
           .catch(err => { console.warn('No se pudo obtener datos de Aretes:', err); hideLoading(); });
       } else if (category === 'collares'){
         showLoading();
-        fetch(COLLARES_SCRIPT_URL)
-          .then(r => r.json())
+        window.cyberduck.cachedFetch(COLLARES_SCRIPT_URL)
           .then(json => {
             if(json && Array.isArray(json.data) && json.data.length){
               renderItemsFromSheet(json.data);
@@ -210,8 +225,7 @@
           .catch(err => { console.warn('No se pudo obtener datos de Collares:', err); hideLoading(); });
       } else if (category === 'gargantillas'){
         showLoading();
-        fetch(GARGANTILLAS_SCRIPT_URL)
-          .then(r => r.json())
+        window.cyberduck.cachedFetch(GARGANTILLAS_SCRIPT_URL)
           .then(json => {
             if(json && Array.isArray(json.data) && json.data.length){
               renderItemsFromSheet(json.data);
@@ -222,8 +236,7 @@
           .catch(err => { console.warn('No se pudo obtener datos de Gargantillas:', err); hideLoading(); });
       } else if (category === 'manillas'){
         showLoading();
-        fetch(MANILLAS_SCRIPT_URL)
-          .then(r => r.json())
+        window.cyberduck.cachedFetch(MANILLAS_SCRIPT_URL)
           .then(json => {
             if(json && Array.isArray(json.data) && json.data.length){
               renderItemsFromSheet(json.data);
@@ -234,8 +247,7 @@
           .catch(err => { console.warn('No se pudo obtener datos de Manillas:', err); hideLoading(); });
       } else if (category === 'otros'){
         showLoading();
-        fetch(OTHERS_SCRIPT_URL)
-          .then(r => r.json())
+        window.cyberduck.cachedFetch(OTHERS_SCRIPT_URL)
           .then(json => {
             if(json && Array.isArray(json.data) && json.data.length){
               renderItemsFromSheet(json.data);
@@ -246,13 +258,13 @@
           .catch(err => { console.warn('No se pudo obtener datos de Otros:', err); hideLoading(); });
       } else if (category === 'todos'){
         showLoading();
-        // Fetch all categories and combine them
+        // Fetch all categories and combine them (optimizado en paralelo)
         const allScripts = [
-          fetch(EARRINGS_SCRIPT_URL).then(r => r.json()),
-          fetch(COLLARES_SCRIPT_URL).then(r => r.json()),
-          fetch(GARGANTILLAS_SCRIPT_URL).then(r => r.json()),
-          fetch(MANILLAS_SCRIPT_URL).then(r => r.json()),
-          fetch(OTHERS_SCRIPT_URL).then(r => r.json())
+          window.cyberduck.cachedFetch(EARRINGS_SCRIPT_URL),
+          window.cyberduck.cachedFetch(COLLARES_SCRIPT_URL),
+          window.cyberduck.cachedFetch(GARGANTILLAS_SCRIPT_URL),
+          window.cyberduck.cachedFetch(MANILLAS_SCRIPT_URL),
+          window.cyberduck.cachedFetch(OTHERS_SCRIPT_URL)
         ];
         Promise.all(allScripts)
           .then(results => {
